@@ -1,0 +1,14 @@
+/LogMonitor.Domain/obj
+/LogMonitor.Domain/bin
+/LogMonitor.IDomianService/obj
+/LogMonitor.IDomianService/bin
+/LogMonitor.Infrastructure/obj
+/LogMonitor.Infrastructure/bin
+/LogMonitor.IRepository/obj
+/LogMonitor.IRepository/bin
+/LogMonitor.IUnitOfWork/obj
+/LogMonitor.IUnitOfWork/bin
+/LogMonitor.Repository/obj
+/LogMonitor.Repository/bin
+/LogMonitor.WebManage/obj
+/LogMonitor.WebManage/bin
