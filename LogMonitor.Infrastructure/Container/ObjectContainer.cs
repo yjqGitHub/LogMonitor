@@ -73,7 +73,7 @@ namespace LogMonitor.Infrastructure
         /// </summary>
         /// <param name="assemblies"></param>
         /// <param name="predicate"></param>
-        public static void RegisterAssemblyTypes(Assembly[] assemblies, Func<Type, bool> predicate = null)
+        public static void RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null)
         {
             Current.RegisterAssemblyTypes(assemblies, predicate);
         }

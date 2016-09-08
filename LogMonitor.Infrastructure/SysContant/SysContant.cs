@@ -17,6 +17,11 @@ namespace LogMonitor.Infrastructure
         public const string LogerName_WebManage = "LogMonitorWebManage";
 
         /// <summary>
+        /// 监控管理后接收服务志记录器名称
+        /// </summary>
+        public const string LogerName_ReceiveService = "LogMonitorReceiveService";
+
+        /// <summary>
         /// App配置文件的路径
         /// </summary>
         public const string Path_AppConfig = "/App_Data/config/App.config";
@@ -30,5 +35,10 @@ namespace LogMonitor.Infrastructure
         /// 解析ip地址的配置文件路径
         /// </summary>
         public const string Path_IpDataConfig = "/App_Data/config/ipdata.config";
+
+        /// <summary>
+        /// 日志监控接收模块
+        /// </summary>
+        public const string Module_ReceiveService = "LogMonitorReceiveService";
     }
 }

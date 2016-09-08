@@ -25,6 +25,12 @@ namespace LogMonitor.IRepository
         void Add(T info);
 
         /// <summary>
+        /// 用于已查询的实体
+        /// </summary>
+        /// <param name="info">已查询的实体</param>
+        void Update(T info);
+
+        /// <summary>
         /// 修改
         /// </summary>
         /// <param name="info"></param>

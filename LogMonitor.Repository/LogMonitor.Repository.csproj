@@ -31,11 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -48,12 +50,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityMap\ErrorLogRecordMap.cs" />
+    <Compile Include="DbManage\DbFactory.cs" />
+    <Compile Include="DbManage\IDbFactory.cs" />
+    <Compile Include="EntityMap\BrowseLogRecordMap.cs" />
+    <Compile Include="EntityMap\LogRecordMap.cs" />
     <Compile Include="EntityMap\ProjectMap.cs" />
+    <Compile Include="EntityMap\ProjectModuleMap.cs" />
+    <Compile Include="EntityMap\ProjectModulePersonMap.cs" />
     <Compile Include="EntityMap\ProjectPersonMap.cs" />
     <Compile Include="EntityMap\UserMap.cs" />
     <Compile Include="LogMonitorContext.cs" />
+    <Compile Include="Migrations\201609080908012_AddDataBase.cs" />
+    <Compile Include="Migrations\201609080908012_AddDataBase.Designer.cs">
+      <DependentUpon>201609080908012_AddDataBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\LogRecordRepository.cs" />
+    <Compile Include="UnitOfWork\LogMonitorUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogMonitor.Domain\LogMonitor.Domain.csproj">
@@ -74,7 +89,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DbManage\" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609080908012_AddDataBase.resx">
+      <DependentUpon>201609080908012_AddDataBase.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

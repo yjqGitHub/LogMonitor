@@ -127,7 +127,7 @@ namespace LogMonitor.Infrastructure
         /// </summary>
         /// <param name="predicate">删选程序集</param>
         /// <param name="assemblies">程序集</param>
-        public void RegisterAssemblyTypes(Assembly[] assemblies, Func<Type, bool> predicate = null)
+        public void RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null)
         {
             if (assemblies != null)
             {

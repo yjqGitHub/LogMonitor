@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static LogMonitor.Infrastructure.WebHelper;
 
 /*
 * Author              :    yjq
@@ -107,7 +108,7 @@ namespace LogMonitor.Infrastructure
         /// </summary>
         /// <param name="ex">异常</param>
         /// <returns>错误异常信息</returns>
-        public static string GetExceptionMsg(Exception ex)
+        public static string GetExceptionMsg(Exception ex, [CallerMemberName] string memberName = null)
         {
             StringBuilder errorBuilder = new StringBuilder();
             errorBuilder.AppendFormat("Source：{0}", ex.Source).AppendLine();
@@ -120,6 +121,17 @@ namespace LogMonitor.Infrastructure
                     errorBuilder.AppendFormat("InnerException：{0}", ex.InnerException.Message).AppendLine();
                 }
             }
+            if (!string.IsNullOrWhiteSpace(memberName))
+            {
+                errorBuilder.AppendFormat("CallerMemberName：{0}", memberName).AppendLine();
+            }
+            if (IsHaveHttpContext())
+            {
+                errorBuilder.AppendFormat("RealIP：{0}", GetRealIP()).AppendLine();
+                errorBuilder.AppendFormat("HttpRequestUrl：{0}", GetHttpRequestUrl()).AppendLine();
+                errorBuilder.AppendFormat("UserAgent：{0}", GetUserAgent()).AppendLine();
+            }
+
             return errorBuilder.ToString();
         }
 
@@ -133,21 +145,9 @@ namespace LogMonitor.Infrastructure
         /// <param name="ex">错误异常</param>
         /// <param name="memberName">调用的成员名字</param>
         /// <returns>错误日志的详情</returns>
-        public static LogDetailInfo GetErrorLog(Exception ex, [CallerMemberName] string memberName = null)
+        public static LogDetailInfo GetErrorLog(Exception ex, [CallerMemberName] string memberName = null, string belongModule = null)
         {
-            LogDetailInfo logDetail = new LogDetailInfo()
-            {
-                AddTime = DateTime.Now,
-                ExecuteMillseconds = 0,
-                Ip = WebHelper.GetRealIP(),
-                LogType = LogTypeEnum.Error,
-                MemberName = memberName,
-                Method = WebHelper.GetHttpMethod(),
-                RequestUrl = WebHelper.GetHttpRequestUrl(),
-                UserAgent = WebHelper.GetUserAgent(),
-                Message = GetExceptionMsg(ex)
-            };
-            return logDetail;
+            return LogDetailInfo.CreateErrorLog(belongModule, GetExceptionMsg(ex,memberName: memberName));
         }
 
         /// <summary>
@@ -156,10 +156,10 @@ namespace LogMonitor.Infrastructure
         /// <param name="ex">错误异常</param>
         /// <param name="memberName">调用的成员名字</param>
         /// <returns>Json格式的错误日志详情</returns>
-        public static string GetJsonErrorLog(Exception ex, [CallerMemberName] string memberName = null)
+        public static string GetJsonErrorLog(Exception ex, [CallerMemberName] string memberName = null, string belongModule = null)
         {
             IJsonSerializer jsonSerializer = ObjectContainer.Current.Resolve<IJsonSerializer>();
-            LogDetailInfo logDetailInfo = GetErrorLog(ex, memberName: memberName);
+            LogDetailInfo logDetailInfo = GetErrorLog(ex, memberName: memberName, belongModule: belongModule);
             return jsonSerializer.Serialize(logDetailInfo);
         }
 

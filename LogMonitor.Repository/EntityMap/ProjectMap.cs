@@ -31,7 +31,7 @@ namespace LogMonitor.Repository.EntityMap
                 .HasMaxLength(50);
             this.Property(m => m.FProjectName)
                 .IsUnicode(true)
-                .IsRequired()
+                .IsOptional()
                 .HasMaxLength(50);
         }
     }

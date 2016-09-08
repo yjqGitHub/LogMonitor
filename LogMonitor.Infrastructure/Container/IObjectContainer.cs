@@ -54,7 +54,7 @@ namespace LogMonitor.Infrastructure
         /// </summary>
         /// <param name="assemblies"></param>
         /// <param name="predicate"></param>
-        void RegisterAssemblyTypes(Assembly[] assemblies, Func<Type, bool> predicate = null);
+        void RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null);
 
         /// <summary>Resolve a service.
         /// </summary>

@@ -36,15 +36,12 @@ namespace LogMonitor.Repository.EntityMap
                 .HasMaxLength(50)
                 .IsRequired();
             this.Property(m => m.FPwd)
-                .IsRequired()
                 .IsUnicode(false)
                 .HasMaxLength(32);
             this.Property(m => m.FSalt)
                 .HasMaxLength(8)
-                .IsRequired()
                 .IsUnicode(false);
             this.Property(m => m.FUserName)
-                .IsRequired()
                 .IsUnicode(false)
                 .HasMaxLength(50);
         }

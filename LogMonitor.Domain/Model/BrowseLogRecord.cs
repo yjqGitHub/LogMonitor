@@ -1,4 +1,4 @@
-﻿using LogMonitor.Domain.ValueObject;
+﻿using System;
 
 /*
 * Author              :    yjq
@@ -22,8 +22,63 @@ namespace LogMonitor.Domain.Model
         public long FId { get; set; }
 
         /// <summary>
-        /// 日志详情
+        /// 程序名字
         /// </summary>
-        public LogInfo LogInfo { get; set; }
+        public string FAppDomain { get; set; }
+
+        /// <summary>
+        /// 项目代码
+        /// </summary>
+        public string FProjectCode { get; set; }
+
+        /// <summary>
+        /// 请求的方法类型
+        /// </summary>
+        public string FRequestType { get; set; }
+
+        /// <summary>
+        /// 请求的绝对地址
+        /// </summary>
+        public string FAbsoluteUrl { get; set; }
+
+        /// <summary>
+        /// 请求的地址
+        /// </summary>
+        public string FQueryUrl { get; set; }
+
+        /// <summary>
+        /// 请求的Ip
+        /// </summary>
+        public string FRequestIp { get; set; }
+
+        /// <summary>
+        /// Ip对应的地址
+        /// </summary>
+        public string FIpAddress { get; set; }
+
+        /// <summary>
+        /// 客户端信息
+        /// </summary>
+        public string FUserAgent { get; set; }
+
+        /// <summary>
+        /// 请求时间
+        /// </summary>
+        public DateTime FRequestTime { get; set; }
+
+        /// <summary>
+        /// 日志信息
+        /// </summary>
+        public string FMessage { get; set; }
+
+        /// <summary>
+        /// 执行消耗的时间
+        /// </summary>
+        public double FExecuteMillseconds { get; set; }
+
+        /// <summary>
+        /// 添加时间
+        /// </summary>
+        public DateTime FAddTime { get; set; }
     }
 }

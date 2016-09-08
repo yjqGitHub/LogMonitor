@@ -16,7 +16,7 @@ namespace LogMonitor.Repository.EntityMap
     {
         public ProjectPersonMap()
         {
-            this.ToTable("T_ProjectPerson")
+            this.ToTable("T_Project_Person")
                 .HasKey(m => m.FId);
             this.Property(m => m.FId)
                 .IsRequired()

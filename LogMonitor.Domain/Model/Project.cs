@@ -42,6 +42,11 @@ namespace LogMonitor.Domain.Model
         public bool FIsDeleted { get; set; }
 
         /// <summary>
+        /// 创建人(0系统)
+        /// </summary>
+        public int FCreater { get; set; }
+
+        /// <summary>
         /// 添加时间
         /// </summary>
         public DateTime FAddTime { get; set; }

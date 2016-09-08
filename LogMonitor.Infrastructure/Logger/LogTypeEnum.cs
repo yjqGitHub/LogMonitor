@@ -12,9 +12,9 @@ namespace LogMonitor.Infrastructure
     public enum LogTypeEnum
     {
         /// <summary>
-        /// 监控
+        /// 严重
         /// </summary>
-        Monitor = 1,
+        Fatal = 1,
 
         /// <summary>
         /// 错误

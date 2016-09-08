@@ -22,7 +22,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>当前网络IP</returns>
         public static string GetRealIP()
         {
-            if (System.Web.HttpContext.Current == null) return string.Empty;
+            if (IsHaveHttpContext()) return string.Empty;
             string result = string.Empty;
             if (System.Web.HttpContext.Current.Request.Headers != null)
             {
@@ -63,7 +63,7 @@ namespace LogMonitor.Infrastructure
         /// <returns></returns>
         public static string GetUserAgent()
         {
-            if (System.Web.HttpContext.Current != null)
+            if (IsHaveHttpContext())
                 return System.Web.HttpContext.Current.Request.UserAgent;
             return string.Empty;
         }
@@ -78,7 +78,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>请求类型</returns>
         public static string GetHttpMethod()
         {
-            if (System.Web.HttpContext.Current != null)
+            if (IsHaveHttpContext())
                 return System.Web.HttpContext.Current.Request.RequestType;
             return string.Empty;
         }
@@ -93,11 +93,22 @@ namespace LogMonitor.Infrastructure
         /// <returns>请求地址</returns>
         public static string GetHttpRequestUrl()
         {
-            if (System.Web.HttpContext.Current != null)
+            if (IsHaveHttpContext())
                 return System.Web.HttpContext.Current.Request.Url.ToString();
             return string.Empty;
         }
 
         #endregion 获取请求地址
+
+        #region 判断是否有网络请求上下文
+        /// <summary>
+        /// 判断是否有网络请求上下文
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsHaveHttpContext()
+        {
+            return (System.Web.HttpContext.Current != null);
+        } 
+        #endregion
     }
 }

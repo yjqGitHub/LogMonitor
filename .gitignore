@@ -12,3 +12,11 @@
 /LogMonitor.Repository/bin
 /LogMonitor.WebManage/obj
 /LogMonitor.WebManage/bin
+/LogMonitor.Application/obj
+/LogMonitor.Application/bin
+/LogMonitor.Application.Dtos/obj
+/LogMonitor.Application.Dtos/bin
+/LogMonitor.DomainService/obj
+/LogMonitor.DomainService/bin
+/LogMonitor.ReceiveService/obj
+/LogMonitor.ReceiveService/bin

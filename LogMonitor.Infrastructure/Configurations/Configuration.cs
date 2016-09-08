@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-/*
+﻿/*
 * Author              :    yjq
 * Email               :    425527169@qq.com
 * Create Time         :    2016/8/31 14:23:53
 * Class Version       :    v1.0.0.0
-* Class Description   :    
+* Class Description   :
 * Copyright @yjq 2016 . All rights reserved.
 */
+
+using System;
+using System.Reflection;
 
 namespace LogMonitor.Infrastructure.Configurations
 {
@@ -20,7 +16,9 @@ namespace LogMonitor.Infrastructure.Configurations
     {
         public static Configuration Instance { get; private set; }
 
-        private Configuration() { }
+        private Configuration()
+        {
+        }
 
         public static Configuration Create()
         {
@@ -41,6 +39,12 @@ namespace LogMonitor.Infrastructure.Configurations
             where TImplementer : class, TService
         {
             ObjectContainer.RegisterInstance<TService, TImplementer>(instance, serviceName);
+            return this;
+        }
+
+        public Configuration RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null)
+        {
+            ObjectContainer.RegisterAssemblyTypes(assemblies, predicate);
             return this;
         }
     }

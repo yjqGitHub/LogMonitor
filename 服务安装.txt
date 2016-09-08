@@ -1,0 +1,1 @@
+C:\Windows\Microsoft.NET\Framework\v4.0.30319>InstallUtil.exe  E:\Project\yjq\Service\WindowsService1\bin\Debug\WindowsService1.exe

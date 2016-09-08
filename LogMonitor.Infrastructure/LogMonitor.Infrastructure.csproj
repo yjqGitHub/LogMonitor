@@ -59,6 +59,9 @@
     <Compile Include="Container\IObjectContainer.cs" />
     <Compile Include="Container\LifeStyle.cs" />
     <Compile Include="Container\ObjectContainer.cs" />
+    <Compile Include="Extension\ByteExtension.cs" />
+    <Compile Include="Extension\IEnumerableExtensions.cs" />
+    <Compile Include="Extension\JsonSerializeExtention.cs" />
     <Compile Include="Helper\ExceptionHelper.cs" />
     <Compile Include="Helper\WebHelper.cs" />
     <Compile Include="Logger\ILogger.cs" />
@@ -67,6 +70,7 @@
     <Compile Include="Logger\LogTypeEnum.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelfDisposable.cs" />
     <Compile Include="Serializing\IJsonSerializer.cs" />
     <Compile Include="SysContant\ConfigKeyContant.cs" />
     <Compile Include="SysContant\SysContant.cs" />
@@ -76,6 +80,7 @@
     <Compile Include="ThirdParty\JsonNet\NewtonsoftJsonSerializer.cs" />
     <Compile Include="ThirdParty\Log4Net\Log4NetLogger.cs" />
     <Compile Include="ThirdParty\Log4Net\Log4NetLoggerFactory.cs" />
+    <Compile Include="Utilities\Ensure.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

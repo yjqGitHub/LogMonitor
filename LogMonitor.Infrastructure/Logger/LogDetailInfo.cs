@@ -16,40 +16,27 @@ namespace LogMonitor.Infrastructure
     /// </summary>
     public sealed class LogDetailInfo
     {
+        public LogDetailInfo()
+        {
+        }
+
+        public LogDetailInfo(LogTypeEnum logType, string module, string message) : base()
+        {
+            LogType = logType;
+            BelongModule = module;
+            Message = message;
+            CreateTime = DateTime.Now;
+        }
+
         /// <summary>
         /// 日志类型
         /// </summary>
         public LogTypeEnum LogType { get; set; }
 
         /// <summary>
-        /// 调用名字
+        /// 所属模块
         /// </summary>
-        public string MemberName { get; set; }
-
-        /// <summary>
-        /// 调用方法
-        /// </summary>
-        public string MethodName { get; set; }
-
-        /// <summary>
-        /// 请求的地址
-        /// </summary>
-        public string RequestUrl { get; set; }
-
-        /// <summary>
-        /// 请求的客户端信息
-        /// </summary>
-        public string UserAgent { get; set; }
-
-        /// <summary>
-        /// 请求的Ip
-        /// </summary>
-        public string Ip { get; set; }
-
-        /// <summary>
-        /// 请求的方式
-        /// </summary>
-        public string Method { get; set; }
+        public string BelongModule { get; set; }
 
         /// <summary>
         /// 记录内容
@@ -57,13 +44,67 @@ namespace LogMonitor.Infrastructure
         public string Message { get; set; }
 
         /// <summary>
-        /// 执行所花的时间(毫秒)
-        /// </summary>
-        public double ExecuteMillseconds { get; set; }
-
-        /// <summary>
         /// 添加时间
         /// </summary>
-        public DateTime AddTime { get; set; }
+        public DateTime CreateTime { get; set; }
+
+        #region CreateLog
+
+        /// <summary>
+        /// 创建一个错误日志信息
+        /// </summary>
+        /// <param name="message">调试内容</param>
+        /// <param name="belongModule">所属模块</param>
+        /// <returns>日志信息</returns>
+        public static LogDetailInfo CreateErrorLog(string message, string belongModule = null)
+        {
+            return new LogDetailInfo(LogTypeEnum.Error, belongModule, message);
+        }
+
+        /// <summary>
+        /// 创建一个调试日志信息
+        /// </summary>
+        /// <param name="message">调试内容</param>
+        /// <param name="belongModule">所属模块</param>
+        /// <returns>日志信息</returns>
+        public static LogDetailInfo CreateDebugLog(string message, string belongModule = null)
+        {
+            return new LogDetailInfo(LogTypeEnum.Debug, belongModule, message);
+        }
+
+        /// <summary>
+        /// 创建一个警告日志信息
+        /// </summary>
+        /// <param name="message">警告内容</param>
+        /// <param name="belongModule">所属模块</param>
+        /// <returns>日志信息</returns>
+        public static LogDetailInfo CreateWarningLog(string message, string belongModule = null)
+        {
+            return new LogDetailInfo(LogTypeEnum.Warning, belongModule, message);
+        }
+
+        /// <summary>
+        /// 创建一个普通日志信息
+        /// </summary>
+        /// <param name="message">内容</param>
+        /// <param name="belongModule">所属模块</param>
+        /// <returns>日志信息</returns>
+        public static LogDetailInfo CreateInfoLog(string message, string belongModule = null)
+        {
+            return new LogDetailInfo(LogTypeEnum.Info, belongModule, message);
+        }
+
+        /// <summary>
+        /// 创建一个严重日志信息
+        /// </summary>
+        /// <param name="message">信息内容</param>
+        /// <param name="belongModule">所属模块</param>
+        /// <returns>日志信息</returns>
+        public static LogDetailInfo CreateFatalLog(string message, string belongModule = null)
+        {
+            return new LogDetailInfo(LogTypeEnum.Fatal, belongModule, message);
+        }
+
+        #endregion CreateLog
     }
 }
