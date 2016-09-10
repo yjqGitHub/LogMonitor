@@ -137,6 +137,21 @@ namespace LogMonitor.Domain.Model
             if (member != null)
                 Chargers.Add(member);
         }
+        /// <summary>
+        /// 添加负责人列表
+        /// </summary>
+        /// <param name="userList">用户列表</param>
+        public void AddCharges(List<User> userList)
+        {
+            AddCharges(userList.Select(m => new MemberInfo()
+            {
+                IsManager = m.FIsAdmin,
+                MemberEmail = m.FEmail,
+                MemberId = m.FId,
+                MemberMobile = m.FMobile,
+                MemberName = m.FName
+            }).ToList());
+        }
 
         #endregion 添加负责人列表
     }

@@ -1,5 +1,4 @@
 ﻿using LogMonitor.Domain.Model;
-using LogMonitor.Domain.ValueObject;
 using LogMonitor.IDomianService;
 using LogMonitor.Infrastructure;
 using LogMonitor.IRepository;
@@ -81,14 +80,7 @@ namespace LogMonitor.DomainService
                 var adminList = _userRepository.GetAdminList();
                 if (adminList != null && adminList.Count() > 0)
                 {
-                    logRecord.AddCharges(adminList.Select(m => new MemberInfo()
-                    {
-                        IsManager = true,
-                        MemberEmail = m.FEmail,
-                        MemberId = m.FId,
-                        MemberMobile = m.FMobile,
-                        MemberName = m.FName
-                    }).ToList());
+                    logRecord.AddCharges(adminList.ToList());
                 }
 
                 return logRecord;
