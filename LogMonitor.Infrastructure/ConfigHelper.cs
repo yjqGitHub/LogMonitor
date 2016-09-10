@@ -23,7 +23,7 @@ namespace LogMonitor.Infrastructure
         /// <param name="memberName">调用成员</param>
         /// <param name="defaultLoggerName">默认日志记录名</param>
         /// <returns>app配置文件的设置的值</returns>
-        public static string GetValue(string key, [CallerMemberName] string memberName = null, string defaultLoggerName = SysContant.LogerName_WebManage)
+        public static string GetValue(string key, [CallerMemberName] string memberName = null, string defaultLoggerName = SysContant.LoggerName_Default)
         {
             return ExceptionHelper.IgnoreButLogException(() =>
             {
@@ -52,7 +52,7 @@ namespace LogMonitor.Infrastructure
         /// <param name="value">设置的值</param>
         /// <param name="memberName">调用成员</param>
         /// <param name="defaultLoggerName">默认日志记录名</param>
-        public static void SetValue(string key, string value, [CallerMemberName] string memberName = null, string defaultLoggerName = SysContant.LogerName_WebManage)
+        public static void SetValue(string key, string value, [CallerMemberName] string memberName = null, string defaultLoggerName = SysContant.LoggerName_Default)
         {
             ExceptionHelper.IgnoreButLogException(() =>
             {

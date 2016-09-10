@@ -1,7 +1,10 @@
 ﻿using LogMonitor.Domain.Model;
+using LogMonitor.Domain.ValueObject;
 using LogMonitor.IDomianService;
 using LogMonitor.Infrastructure;
+using LogMonitor.IRepository;
 using System;
+using System.Linq;
 
 /*
 * Author              :    yjq
@@ -17,9 +20,15 @@ namespace LogMonitor.DomainService
     public sealed class LogRecordService : ILogRecordService
     {
         private readonly IJsonSerializer _jsonSerializer;
+        private readonly IProjectRepository _projectRepository;
+        private readonly IProjectModuleRepository _projectModuleRepository;
+        private readonly IUserRepository _userRepository;
 
-        public LogRecordService()
+        public LogRecordService(IProjectRepository projectRepository, IProjectModuleRepository projectModuleRepository, IUserRepository userRepository)
         {
+            _projectRepository = projectRepository;
+            _projectModuleRepository = projectModuleRepository;
+            _userRepository = userRepository;
             _jsonSerializer = ObjectContainer.Current.Resolve<IJsonSerializer>();
         }
 
@@ -38,6 +47,7 @@ namespace LogMonitor.DomainService
             if (details.Length >= 5)
             {
                 LogDetailInfo logDetailInfo = _jsonSerializer.Deserialize<LogDetailInfo>(details[4]);
+
                 LogRecord logRecord = new LogRecord()
                 {
                     FCreateTime = logDetailInfo.CreateTime,
@@ -48,6 +58,39 @@ namespace LogMonitor.DomainService
                     FMessage = logDetailInfo.Message,
                     FModuleCode = logDetailInfo.BelongModule
                 };
+
+                //查找模块信息
+                if (!string.IsNullOrWhiteSpace(logRecord.FModuleCode))
+                {
+                    ProjectModule projectModule = _projectModuleRepository.GetProjectModule(logRecord.FModuleCode, logRecord.FProjectCode);
+                    if (projectModule != null)
+                    {
+                        logRecord.SetModuleInfo(projectModule);
+                    }
+                }
+                //查找项目信息
+                if (!string.IsNullOrWhiteSpace(logRecord.FProjectCode))
+                {
+                    Project project = _projectRepository.GetProjectInfo(logRecord.FProjectCode);
+                    if (project != null)
+                    {
+                        logRecord.SetProjectInfo(project);
+                    }
+                }
+                //获取管理员列表
+                var adminList = _userRepository.GetAdminList();
+                if (adminList != null && adminList.Count() > 0)
+                {
+                    logRecord.AddCharges(adminList.Select(m => new MemberInfo()
+                    {
+                        IsManager = true,
+                        MemberEmail = m.FEmail,
+                        MemberId = m.FId,
+                        MemberMobile = m.FMobile,
+                        MemberName = m.FName
+                    }).ToList());
+                }
+
                 return logRecord;
             }
             return null;

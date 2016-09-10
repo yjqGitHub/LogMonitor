@@ -19,7 +19,7 @@ namespace LogMonitor.ReceiveService
         {
             InitializeComponent();
             _logRecordApplication = ObjectContainer.Current.Resolve<ILogRecordApplication>();
-            _logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(SysContant.LogerName_ReceiveService);
+            _logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(SysContant.LoggerName_Default);
         }
 
         protected override void OnStart(string[] args)
@@ -31,25 +31,19 @@ namespace LogMonitor.ReceiveService
             {
                 MonitorLog(listenIpAddress, listenIpPort);
             });
-            LogDetailInfo logDetailInfo = LogDetailInfo.CreateDebugLog("服务开始", belongModule: "LogMonitorReceiveService");
+            LogDetailInfo logDetailInfo = LogDetailInfo.CreateDebugLog("服务开始", belongModule: SysContant.Module_ReceiveService);
             _logger.Debug(logDetailInfo.ToJson());
 
         }
 
         protected override void OnStop()
         {
-            LogDetailInfo logDetailInfo = LogDetailInfo.CreateWarningLog("服务停止", belongModule: "LogMonitorReceiveService");
+            LogDetailInfo logDetailInfo = LogDetailInfo.CreateWarningLog("服务停止", belongModule: SysContant.Module_ReceiveService);
             _logger.Warn(logDetailInfo.ToJson());
         }
 
         private void MonitorLog(string ipAddress, int port)
         {
-            int i = 0;
-            while (i < 20)
-            {
-                System.Threading.Thread.Sleep(1500);
-                i++;
-            }
             IPAddress address = IPAddress.Parse(ipAddress);
             IPEndPoint remoteEndPoint = new IPEndPoint(address, 0);
             UdpClient udpClient;
@@ -57,7 +51,7 @@ namespace LogMonitor.ReceiveService
             try
             {
                 udpClient = new UdpClient(port);
-                LogDetailInfo logDetailInfo = LogDetailInfo.CreateDebugLog("监听开始", belongModule: "LogMonitorReceiveService");
+                LogDetailInfo logDetailInfo = LogDetailInfo.CreateDebugLog("监听开始", belongModule: SysContant.Module_ReceiveService);
                 _logger.Debug(logDetailInfo.ToJson());
                 while (true)
                 {
@@ -65,15 +59,15 @@ namespace LogMonitor.ReceiveService
                     bool isSuccess = ExceptionHelper.IgnoreButLogException(() =>
                     {
                         string logDetail = buffer.GetString();
-                        return _logRecordApplication.AddLogRecord(logDetail, defaultLoggerName: SysContant.LogerName_ReceiveService);
-                    }, defaultLoggerName: SysContant.LogerName_ReceiveService);
+                        return _logRecordApplication.AddLogRecord(logDetail, defaultLoggerName: SysContant.LoggerName_Default);
+                    }, defaultLoggerName: SysContant.LoggerName_Default);
                 }
             }
             catch (Exception ex)
             {
-                string errorMsg = ExceptionHelper.GetJsonErrorLog(ex, belongModule: "LogMonitorReceiveService");
+                string errorMsg = ExceptionHelper.GetJsonErrorLog(ex, belongModule: SysContant.Module_ReceiveService);
                 _logger.Error(errorMsg);
-                LogDetailInfo logDetailInfo = LogDetailInfo.CreateFatalLog("UDP监听出异常了", belongModule: "LogMonitorReceiveService");
+                LogDetailInfo logDetailInfo = LogDetailInfo.CreateFatalLog("UDP监听出异常了", belongModule: SysContant.Module_ReceiveService);
                 _logger.Fatal(logDetailInfo.ToJson());
             }
         }

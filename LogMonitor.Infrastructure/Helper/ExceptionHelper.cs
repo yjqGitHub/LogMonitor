@@ -71,7 +71,7 @@ namespace LogMonitor.Infrastructure
             }
             catch (Exception ex)
             {
-                ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LogerName_WebManage);
+                ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LoggerName_Default);
                 logger.Error(GetJsonErrorLog(ex, memberName: memberName));
             }
         }
@@ -93,7 +93,7 @@ namespace LogMonitor.Infrastructure
             }
             catch (Exception ex)
             {
-                ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LogerName_WebManage);
+                ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LoggerName_Default);
                 logger.Error(GetJsonErrorLog(ex, memberName: memberName));
                 return defaultValue;
             }

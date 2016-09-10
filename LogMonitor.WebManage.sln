@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMonitor.Application.Dtos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMonitor.ReceiveService", "LogMonitor.ReceiveService\LogMonitor.ReceiveService.csproj", "{057FA315-9A51-4C0F-878C-AE4F64802E16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogMonitor.Domain.DomainEvent", "LogMonitor.Domain.DomainEvent\LogMonitor.Domain.DomainEvent.csproj", "{4792108A-CCFA-48DB-95CB-37A63EC8AFC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{057FA315-9A51-4C0F-878C-AE4F64802E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{057FA315-9A51-4C0F-878C-AE4F64802E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{057FA315-9A51-4C0F-878C-AE4F64802E16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4792108A-CCFA-48DB-95CB-37A63EC8AFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4792108A-CCFA-48DB-95CB-37A63EC8AFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4792108A-CCFA-48DB-95CB-37A63EC8AFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4792108A-CCFA-48DB-95CB-37A63EC8AFC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,5 +105,6 @@ Global
 		{ED5130F5-528E-472B-A4B0-B4A463EA3434} = {AC7E0396-6CD6-41EA-9C57-86B5120A90B1}
 		{C8147196-25A0-42AA-8610-22E49E07CAAE} = {AC7E0396-6CD6-41EA-9C57-86B5120A90B1}
 		{057FA315-9A51-4C0F-878C-AE4F64802E16} = {608E7F93-27CE-479C-A541-7A79CAA295E0}
+		{4792108A-CCFA-48DB-95CB-37A63EC8AFC6} = {A497A49A-1AE1-4E18-A169-86BD51A5EDD0}
 	EndGlobalSection
 EndGlobal

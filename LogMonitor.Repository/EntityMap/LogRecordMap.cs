@@ -33,6 +33,8 @@ namespace LogMonitor.Repository.EntityMap
             this.Property(m => m.FProjectCode)
                 .IsUnicode(false)
                 .HasMaxLength(50);
+
+            this.Ignore(m => m.Chargers);
         }
     }
 }

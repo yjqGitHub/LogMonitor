@@ -59,6 +59,7 @@
     <Compile Include="Container\IObjectContainer.cs" />
     <Compile Include="Container\LifeStyle.cs" />
     <Compile Include="Container\ObjectContainer.cs" />
+    <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Extension\ByteExtension.cs" />
     <Compile Include="Extension\IEnumerableExtensions.cs" />
     <Compile Include="Extension\JsonSerializeExtention.cs" />
@@ -82,7 +83,9 @@
     <Compile Include="ThirdParty\Log4Net\Log4NetLoggerFactory.cs" />
     <Compile Include="Utilities\Ensure.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ThirdParty\Redis\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

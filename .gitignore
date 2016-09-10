@@ -21,3 +21,5 @@
 /LogMonitor.ReceiveService/obj
 /LogMonitor.ReceiveService/bin
 /.vs
+/LogMonitor.Domain.DomainEvent/obj
+/LogMonitor.Domain.DomainEvent/bin

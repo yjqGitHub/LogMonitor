@@ -37,7 +37,7 @@ namespace LogMonitor.ReceiveService
                                    .RegisterAssemblyTypes(application, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Application.Implemenet"))
                                    ;
 
-            var logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(SysContant.LogerName_ReceiveService);
+            var logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(SysContant.LoggerName_Default);
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
                 Exception ex = e.ExceptionObject as Exception;

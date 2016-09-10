@@ -33,6 +33,8 @@ namespace LogMonitor.Repository.EntityMap
                 .IsUnicode(true)
                 .IsOptional()
                 .HasMaxLength(50);
+
+            this.Ignore(m => m.Members);
         }
     }
 }

@@ -12,33 +12,33 @@ namespace LogMonitor.Infrastructure
     public partial class SysContant
     {
         /// <summary>
-        /// 监控管理后台日志记录器名称
+        /// 默认日志记录器名称
         /// </summary>
-        public const string LogerName_WebManage = "LogMonitorWebManage";
+        public const string LoggerName_Default = "LogMonitor";
 
         /// <summary>
-        /// 监控管理后接收服务志记录器名称
+        /// 监控管理后台模块名称
         /// </summary>
-        public const string LogerName_ReceiveService = "LogMonitorReceiveService";
-
-        /// <summary>
-        /// App配置文件的路径
-        /// </summary>
-        public const string Path_AppConfig = "/App_Data/config/App.config";
-
-        /// <summary>
-        /// log4net的配置文件路径
-        /// </summary>
-        public const string Path_Log4NetConfig = "/App_Data/config/Log4Net.config";
-
-        /// <summary>
-        /// 解析ip地址的配置文件路径
-        /// </summary>
-        public const string Path_IpDataConfig = "/App_Data/config/ipdata.config";
+        public const string Module_WebManage = "LogMonitorWebManage";
 
         /// <summary>
         /// 日志监控接收模块
         /// </summary>
         public const string Module_ReceiveService = "LogMonitorReceiveService";
+
+        /// <summary>
+        /// App配置文件的路径
+        /// </summary>
+        public const string Path_AppConfig = "App_Data/config/AppSetting.config";
+
+        /// <summary>
+        /// log4net的配置文件路径
+        /// </summary>
+        public const string Path_Log4NetConfig = "App_Data/config/Log4Net.config";
+
+        /// <summary>
+        /// 解析ip地址的配置文件路径
+        /// </summary>
+        public const string Path_IpDataConfig = "App_Data/config/ipdata.config";
     }
 }

@@ -1,5 +1,8 @@
-﻿using LogMonitor.Infrastructure;
+﻿using LogMonitor.Domain.ValueObject;
+using LogMonitor.Infrastructure;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 /*
 * Author              :    yjq
@@ -66,5 +69,75 @@ namespace LogMonitor.Domain.Model
         /// 添加时间
         /// </summary>
         public DateTime FAddTime { get; set; }
+
+        /// <summary>
+        /// 负责人列表
+        /// </summary>
+        public List<MemberInfo> Chargers { get; set; }
+
+        #region 设置项目模块信息
+
+        /// <summary>
+        /// 设置项目模块信息
+        /// </summary>
+        /// <param name="projectModule">项目模块信息</param>
+        public void SetModuleInfo(ProjectModule projectModule)
+        {
+            if (projectModule != null)
+            {
+                FModuleId = projectModule.FId;
+                FProjectId = projectModule.FProjectId;
+                if (projectModule.Members != null)
+                {
+                    AddCharges(projectModule.Members.ToList());
+                }
+            }
+        }
+
+        #endregion 设置项目模块信息
+
+        #region 设置项目信息
+
+        /// <summary>
+        /// 设置项目信息
+        /// </summary>
+        /// <param name="project">项目信息</param>
+        public void SetProjectInfo(Project project)
+        {
+            if (project != null)
+            {
+                FProjectId = project.FId;
+                if (project.Members != null)
+                {
+                    AddCharges(project.Members.ToList());
+                }
+            }
+        }
+
+        #endregion 设置项目信息
+
+        #region 添加负责人列表
+
+        /// <summary>
+        /// 添加负责人列表
+        /// </summary>
+        /// <param name="memberList">负责人列表</param>
+        public void AddCharges(List<MemberInfo> memberList)
+        {
+            if (memberList != null)
+                Chargers.AddRange(memberList);
+        }
+
+        /// <summary>
+        /// 添加负责人
+        /// </summary>
+        /// <param name="member">负责人</param>
+        public void AddCharge(MemberInfo member)
+        {
+            if (member != null)
+                Chargers.Add(member);
+        }
+
+        #endregion 添加负责人列表
     }
 }

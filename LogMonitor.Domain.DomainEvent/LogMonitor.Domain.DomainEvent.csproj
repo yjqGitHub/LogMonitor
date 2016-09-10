@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E90CF1CB-BD3A-4C3B-AB5A-CE9FB67C5E1B}</ProjectGuid>
+    <ProjectGuid>{4792108A-CCFA-48DB-95CB-37A63EC8AFC6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogMonitor.Domain</RootNamespace>
-    <AssemblyName>LogMonitor.Domain</AssemblyName>
+    <RootNamespace>LogMonitor.Domain.DomainEvent</RootNamespace>
+    <AssemblyName>LogMonitor.Domain.DomainEvent</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,17 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAggregateRoot.cs" />
-    <Compile Include="IEntity.cs" />
-    <Compile Include="Model\BrowseLogRecord.cs" />
-    <Compile Include="Model\LogRecord.cs" />
-    <Compile Include="Model\Project.cs" />
-    <Compile Include="Model\ProjectModule.cs" />
-    <Compile Include="Model\ProjectModulePerson.cs" />
-    <Compile Include="Model\ProjectPerson.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="EventBus.cs" />
+    <Compile Include="EventHandlers\SendEmailEventHandler.cs" />
+    <Compile Include="Events\DangerLogHappendEvent.cs" />
+    <Compile Include="Events\SendEmailEvent.cs" />
+    <Compile Include="IEvent.cs" />
+    <Compile Include="IEventBus.cs" />
+    <Compile Include="IEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValueObject\MemberInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogMonitor.Infrastructure\LogMonitor.Infrastructure.csproj">
@@ -59,6 +55,7 @@
       <Name>LogMonitor.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

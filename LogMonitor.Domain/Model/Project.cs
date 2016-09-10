@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LogMonitor.Domain.ValueObject;
+using System;
+using System.Collections.Generic;
 
 /*
 * Author              :    yjq
@@ -55,5 +57,10 @@ namespace LogMonitor.Domain.Model
         /// 修改时间
         /// </summary>
         public DateTime? FModifyTime { get; set; }
+
+        /// <summary>
+        /// 项目成员
+        /// </summary>
+        public IEnumerable<MemberInfo> Members { get; set; }
     }
 }

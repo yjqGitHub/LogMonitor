@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="IBaseRepository.cs" />
     <Compile Include="ILogRecordRepository.cs" />
+    <Compile Include="IProjectModuleRepository.cs" />
+    <Compile Include="IProjectRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -41,7 +41,7 @@ namespace LogMonitor.Repository
 
         #endregion .ctor
 
-        protected LogMonitorContext LogMonitorDbContext { get { return _logMonitorContext; } }
+        protected LogMonitorContext LogMonitorContext { get { return _logMonitorContext; } }
 
         #region 增删改
 
@@ -52,7 +52,7 @@ namespace LogMonitor.Repository
         public void Add(T info)
         {
             Ensure.NotNull(info, "info");
-            LogMonitorDbContext.Entry(info).State = EntityState.Added;
+            LogMonitorContext.Entry(info).State = EntityState.Added;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace LogMonitor.Repository
         /// <param name="info">已查询的实体</param>
         public void Update(T info)
         {
-            LogMonitorDbContext.Entry(info).State = EntityState.Modified;
+            LogMonitorContext.Entry(info).State = EntityState.Modified;
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace LogMonitor.Repository
         {
             Ensure.NotNull(info, "info");
             Ensure.NotNull(updateProperties, "updateProperties");
-            DbEntityEntry<T> entry = LogMonitorDbContext.Entry(info);
+            DbEntityEntry<T> entry = LogMonitorContext.Entry(info);
             entry.State = EntityState.Unchanged;
             updateProperties.ForEach(property =>
             {
@@ -88,7 +88,7 @@ namespace LogMonitor.Repository
         public void Delete(T info)
         {
             Ensure.NotNull(info, "info");
-            LogMonitorDbContext.Entry(info).State = EntityState.Deleted;
+            LogMonitorContext.Entry(info).State = EntityState.Deleted;
         }
 
         #endregion 增删改
@@ -104,15 +104,15 @@ namespace LogMonitor.Repository
         public T GetByKey(TKey key, bool autoDetectChangesEnabled = false)
         {
             T entity;
-            bool autoState = LogMonitorDbContext.Configuration.AutoDetectChangesEnabled;
+            bool autoState = LogMonitorContext.Configuration.AutoDetectChangesEnabled;
             try
             {
-                LogMonitorDbContext.Configuration.AutoDetectChangesEnabled = autoDetectChangesEnabled;
+                LogMonitorContext.Configuration.AutoDetectChangesEnabled = autoDetectChangesEnabled;
                 entity = _dbSet.Find(key);
             }
             finally
             {
-                LogMonitorDbContext.Configuration.AutoDetectChangesEnabled = autoState;
+                LogMonitorContext.Configuration.AutoDetectChangesEnabled = autoState;
             }
             return entity;
         }
