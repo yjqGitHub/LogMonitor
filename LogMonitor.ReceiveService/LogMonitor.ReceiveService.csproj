@@ -93,6 +93,10 @@
       <Project>{ed5130f5-528e-472b-a4b0-b4a463ea3434}</Project>
       <Name>LogMonitor.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogMonitor.Domain.DomainEvent\LogMonitor.Domain.DomainEvent.csproj">
+      <Project>{4792108a-ccfa-48db-95cb-37a63ec8afc6}</Project>
+      <Name>LogMonitor.Domain.DomainEvent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogMonitor.DomainService\LogMonitor.DomainService.csproj">
       <Project>{fe147da7-b434-48b5-8357-5383c3265c29}</Project>
       <Name>LogMonitor.DomainService</Name>
