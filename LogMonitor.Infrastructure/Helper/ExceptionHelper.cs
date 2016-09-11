@@ -190,7 +190,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>错误日志的详情</returns>
         public static LogDetailInfo GetErrorLog(Exception ex, [CallerMemberName] string memberName = null, string belongModule = null)
         {
-            return LogDetailInfo.CreateErrorLog(belongModule, GetExceptionMsg(ex, memberName: memberName));
+            return LogDetailInfo.CreateErrorLog(GetExceptionMsg(ex, memberName: memberName),belongModule );
         }
 
         /// <summary>

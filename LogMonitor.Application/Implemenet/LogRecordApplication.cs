@@ -3,6 +3,7 @@ using LogMonitor.IDomianService;
 using LogMonitor.Infrastructure;
 using LogMonitor.IRepository;
 using LogMonitor.IUnitOfWork;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 

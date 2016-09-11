@@ -23,6 +23,7 @@ namespace LogMonitor.Domain.Model
     /// </summary>
     public sealed class LogRecord : IAggregateRoot<long>
     {
+        private List<MemberInfo> _memberList = new List<MemberInfo>();
         /// <summary>
         /// 主Id，自增
         /// </summary>
@@ -81,7 +82,7 @@ namespace LogMonitor.Domain.Model
         /// <summary>
         /// 负责人列表
         /// </summary>
-        public List<MemberInfo> Chargers { get; set; }
+        public List<MemberInfo> Chargers { get {return _memberList; } set { _memberList = value; } }
 
         #region 设置项目模块信息
 
@@ -205,7 +206,7 @@ namespace LogMonitor.Domain.Model
                IEventBus eventBus = ObjectContainer.Current.Resolve<IEventBus>();
                DangerLogHappendEvent dangerLogHappendEvent = new DangerLogHappendEvent()
                {
-                   ReceiverEmailList = Chargers?.Select(m => m.MemberEmail).ToArray(),
+                   ReceiverEmailList = Chargers?.Select(m => m.MemberEmail).Distinct().ToArray(),
                    Title = title,
                    Message = message
                };

@@ -13,7 +13,7 @@ using System.Linq;
 * Copyright @yjq 2016 . All rights reserved.
 */
 
-namespace LogMonitor.Repository
+namespace LogMonitor.Repository.Repository
 {
     public sealed class ProjectRepository : BaseRepository<Project, int>, IProjectRepository
     {

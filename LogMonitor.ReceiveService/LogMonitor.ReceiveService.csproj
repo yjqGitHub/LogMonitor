@@ -78,6 +78,7 @@
     <None Include="App_Data\config\AppSetting.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="App_Data\config\ipdata.config" />
     <None Include="App_Data\config\Log4Net.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
