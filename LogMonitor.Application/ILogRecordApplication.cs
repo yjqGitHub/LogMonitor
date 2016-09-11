@@ -8,6 +8,7 @@
 */
 
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace LogMonitor.Application
 {
@@ -18,8 +19,19 @@ namespace LogMonitor.Application
         /// <summary>
         /// 添加一条日志记录
         /// </summary>
-        /// <param name="logDetail"></param>
-        /// <returns></returns>
+        /// <param name="logDetail">日志内容</param>
+        /// <param name="memberName">调用的方法名字</param>
+        /// <param name="defaultLoggerName">默认日志记录器</param>
+        /// <returns>true标识添加成功</returns>
+        Task<bool> AddLogRecordAsync(string logDetail, [CallerMemberName] string memberName = null, string defaultLoggerName = null);
+
+        /// <summary>
+        /// 添加一条日志记录
+        /// </summary>
+        /// <param name="logDetail">日志内容</param>
+        /// <param name="memberName">调用的方法名字</param>
+        /// <param name="defaultLoggerName">默认日志记录器</param>
+        /// <returns>true标识添加成功</returns>
         bool AddLogRecord(string logDetail, [CallerMemberName] string memberName = null, string defaultLoggerName = null);
 
         #endregion 添加一条日志记录

@@ -17,6 +17,11 @@ namespace LogMonitor.Infrastructure
         public const string LoggerName_Default = "LogMonitor";
 
         /// <summary>
+        /// 默认浏览记录日志记录器名称
+        /// </summary>
+        public const string LoggerName_Default_Brose = "LogMonitorBrose";
+
+        /// <summary>
         /// 监控管理后台模块名称
         /// </summary>
         public const string Module_WebManage = "LogMonitorWebManage";

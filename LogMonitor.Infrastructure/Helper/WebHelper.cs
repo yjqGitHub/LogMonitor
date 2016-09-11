@@ -101,6 +101,7 @@ namespace LogMonitor.Infrastructure
         #endregion 获取请求地址
 
         #region 判断是否有网络请求上下文
+
         /// <summary>
         /// 判断是否有网络请求上下文
         /// </summary>
@@ -108,7 +109,8 @@ namespace LogMonitor.Infrastructure
         public static bool IsHaveHttpContext()
         {
             return (System.Web.HttpContext.Current != null);
-        } 
-        #endregion
+        }
+
+        #endregion 判断是否有网络请求上下文
     }
 }

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBaseRepository.cs" />
+    <Compile Include="IBrowseLogRecordRepository.cs" />
     <Compile Include="ILogRecordRepository.cs" />
     <Compile Include="IProjectModuleRepository.cs" />
     <Compile Include="IProjectRepository.cs" />

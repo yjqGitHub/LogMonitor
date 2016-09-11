@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using static LogMonitor.Infrastructure.WebHelper;
 
 /*
@@ -79,6 +80,25 @@ namespace LogMonitor.Infrastructure
         /// <summary>
         /// 忽略异常，但记录异常
         /// </summary>
+        /// <param name="action">执行的方法</param>
+        /// <param name="memberName">调用成员信息</param>
+        /// <param name="defaultLoggerName">默认的日志文件名字</param>
+        public static async Task IgnoreButLogExceptionAsync(Func<Task> action, [CallerMemberName] string memberName = null, string defaultLoggerName = null)
+        {
+            try
+            {
+                await action();
+            }
+            catch (Exception ex)
+            {
+                ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LoggerName_Default);
+                logger.Error(GetJsonErrorLog(ex, memberName: memberName));
+            }
+        }
+
+        /// <summary>
+        /// 忽略异常，但记录异常
+        /// </summary>
         /// <typeparam name="T">返回值类型</typeparam>
         /// <param name="action">执行的方法</param>
         /// <param name="defaultValue">默认返回值</param>
@@ -90,6 +110,29 @@ namespace LogMonitor.Infrastructure
             try
             {
                 return action();
+            }
+            catch (Exception ex)
+            {
+                ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LoggerName_Default);
+                logger.Error(GetJsonErrorLog(ex, memberName: memberName));
+                return defaultValue;
+            }
+        }
+
+        /// <summary>
+        /// 忽略异常，但记录异常
+        /// </summary>
+        /// <typeparam name="T">返回值类型</typeparam>
+        /// <param name="action">执行的方法</param>
+        /// <param name="defaultValue">默认返回值</param>
+        /// <param name="memberName">调用成员信息</param>
+        /// <param name="defaultLoggerName">默认的日志文件名字</param>
+        /// <returns>如果没异常，返回值就是正常返回值，假如出现了异常，返回值就是默认的值</returns>
+        public static async Task<T> IgnoreButLogExceptionAsync<T>(Func<Task<T>> action, T defaultValue = default(T), [CallerMemberName] string memberName = null, string defaultLoggerName = null)
+        {
+            try
+            {
+                return await action();
             }
             catch (Exception ex)
             {
@@ -147,7 +190,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>错误日志的详情</returns>
         public static LogDetailInfo GetErrorLog(Exception ex, [CallerMemberName] string memberName = null, string belongModule = null)
         {
-            return LogDetailInfo.CreateErrorLog(belongModule, GetExceptionMsg(ex,memberName: memberName));
+            return LogDetailInfo.CreateErrorLog(belongModule, GetExceptionMsg(ex, memberName: memberName));
         }
 
         /// <summary>

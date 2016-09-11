@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrowseLogRecordDomainService.cs" />
     <Compile Include="LogRecordService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -54,6 +54,10 @@
     <Compile Include="ValueObject\MemberInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogMonitor.Domain.DomainEvent\LogMonitor.Domain.DomainEvent.csproj">
+      <Project>{4792108a-ccfa-48db-95cb-37a63ec8afc6}</Project>
+      <Name>LogMonitor.Domain.DomainEvent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogMonitor.Infrastructure\LogMonitor.Infrastructure.csproj">
       <Project>{e7056934-2509-4871-94f1-a32c43012bfa}</Project>
       <Name>LogMonitor.Infrastructure</Name>

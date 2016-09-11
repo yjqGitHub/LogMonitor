@@ -26,6 +26,7 @@ namespace LogMonitor.ReceiveService
             var repository = Assembly.Load("LogMonitor.Repository");
             var domainService = Assembly.Load("LogMonitor.DomainService");
             var application = Assembly.Load("LogMonitor.Application");
+            var damianEvent= Assembly.Load("LogMonitor.Domain.DomainEvent");
             LogMonitorConfiguration.Create()
                                    .UseAutofac()
                                    .UseJsonNet()
@@ -35,6 +36,7 @@ namespace LogMonitor.ReceiveService
                                    .RegisterAssemblyTypes(repository, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Repository.Repository"))
                                    .RegisterAssemblyTypes(domainService, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.DomainService"))
                                    .RegisterAssemblyTypes(application, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Application.Implemenet"))
+                                   .RegisterAssemblyTypes(damianEvent,m=>m.Namespace!=null&&m.Namespace.StartsWith("LogMonitor.Domain.DomainEvent"))
                                    ;
 
             var logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(SysContant.LoggerName_Default);

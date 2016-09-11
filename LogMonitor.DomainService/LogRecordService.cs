@@ -58,24 +58,10 @@ namespace LogMonitor.DomainService
                     FModuleCode = logDetailInfo.BelongModule
                 };
 
-                //查找模块信息
-                if (!string.IsNullOrWhiteSpace(logRecord.FModuleCode))
-                {
-                    ProjectModule projectModule = _projectModuleRepository.GetProjectModule(logRecord.FModuleCode, logRecord.FProjectCode);
-                    if (projectModule != null)
-                    {
-                        logRecord.SetModuleInfo(projectModule);
-                    }
-                }
+                //查找并设置模块信息
+                SearchAndSetModuleInfo(logRecord);
                 //查找项目信息
-                if (!string.IsNullOrWhiteSpace(logRecord.FProjectCode))
-                {
-                    Project project = _projectRepository.GetProjectInfo(logRecord.FProjectCode);
-                    if (project != null)
-                    {
-                        logRecord.SetProjectInfo(project);
-                    }
-                }
+                SearchAndSetProjectInfo(logRecord);
                 //获取管理员列表
                 var adminList = _userRepository.GetAdminList();
                 if (adminList != null && adminList.Count() > 0)
@@ -89,5 +75,49 @@ namespace LogMonitor.DomainService
         }
 
         #endregion 根据传输的日志内容获取日志记录对象
+
+        #region 查找并设置模块信息
+
+        /// <summary>
+        /// 查找并设置模块信息
+        /// </summary>
+        /// <param name="logRecord">日志记录</param>
+        /// <returns>日志记录</returns>
+        public LogRecord SearchAndSetModuleInfo(LogRecord logRecord)
+        {
+            if (!string.IsNullOrWhiteSpace(logRecord.FModuleCode) && !string.IsNullOrWhiteSpace(logRecord.FProjectCode))
+            {
+                ProjectModule projectModule = _projectModuleRepository.GetProjectModule(logRecord.FModuleCode, logRecord.FProjectCode);
+                if (projectModule != null)
+                {
+                    logRecord.SetModuleInfo(projectModule);
+                }
+            }
+            return logRecord;
+        }
+
+        #endregion 查找并设置模块信息
+
+        #region 查找并设置项目信息
+
+        /// <summary>
+        /// 查找并设置项目信息
+        /// </summary>
+        /// <param name="logRecord">日志记录</param>
+        /// <returns>日志记录</returns>
+        public LogRecord SearchAndSetProjectInfo(LogRecord logRecord)
+        {
+            if (!string.IsNullOrWhiteSpace(logRecord.FProjectCode))
+            {
+                Project project = _projectRepository.GetProjectInfo(logRecord.FProjectCode);
+                if (project != null)
+                {
+                    logRecord.SetProjectInfo(project);
+                }
+            }
+            return logRecord;
+        }
+
+        #endregion 查找并设置项目信息
     }
 }

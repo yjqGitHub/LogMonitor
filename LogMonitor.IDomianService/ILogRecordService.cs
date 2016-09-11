@@ -23,5 +23,27 @@ namespace LogMonitor.IDomianService
         LogRecord CreateLogRecord(string logInfo);
 
         #endregion 根据传输的日志内容获取日志记录对象
+
+        #region 查找并设置模块信息
+
+        /// <summary>
+        /// 查找并设置模块信息
+        /// </summary>
+        /// <param name="logRecord">日志记录</param>
+        /// <returns>日志记录</returns>
+        LogRecord SearchAndSetModuleInfo(LogRecord logRecord);
+
+        #endregion 查找并设置模块信息
+
+        #region 查找并设置项目信息
+
+        /// <summary>
+        /// 查找并设置项目信息
+        /// </summary>
+        /// <param name="logRecord">日志记录</param>
+        /// <returns>日志记录</returns>
+        LogRecord SearchAndSetProjectInfo(LogRecord logRecord);
+
+        #endregion 查找并设置项目信息
     }
 }

@@ -1,8 +1,11 @@
-﻿using LogMonitor.Domain.ValueObject;
+﻿using LogMonitor.Domain.DomainEvent;
+using LogMonitor.Domain.ValueObject;
 using LogMonitor.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 /*
 * Author              :    yjq
@@ -71,6 +74,11 @@ namespace LogMonitor.Domain.Model
         public DateTime FAddTime { get; set; }
 
         /// <summary>
+        /// 是否已通知
+        /// </summary>
+        public bool FIsNoticed { get; set; }
+
+        /// <summary>
         /// 负责人列表
         /// </summary>
         public List<MemberInfo> Chargers { get; set; }
@@ -137,6 +145,7 @@ namespace LogMonitor.Domain.Model
             if (member != null)
                 Chargers.Add(member);
         }
+
         /// <summary>
         /// 添加负责人列表
         /// </summary>
@@ -154,5 +163,56 @@ namespace LogMonitor.Domain.Model
         }
 
         #endregion 添加负责人列表
+
+        #region 有新日志记录产生时处理方式
+
+        /// <summary>
+        /// 有新日志记录产生时处理方式
+        /// </summary>
+        /// <returns></returns>
+        public async Task HaveNewRecordAsync([CallerMemberName] string memberName = null, string defaultLoggerName = null)
+        {
+            switch (FLogType)
+            {
+                case LogTypeEnum.Error:
+                    await SendDangerLogHappendEventAsync($"【{FProjectCode}】项目有错误发生,请前去查看", FMessage, memberName: memberName, defaultLoggerName: defaultLoggerName);
+                    break;
+
+                case LogTypeEnum.Fatal:
+                    await SendDangerLogHappendEventAsync($"【{FProjectCode}】项目有严重事情要处理,请前去查看", FMessage, memberName: memberName, defaultLoggerName: defaultLoggerName);
+                    break;
+
+                case LogTypeEnum.Warning:
+                    await SendDangerLogHappendEventAsync($"【{FProjectCode}】项目有警告事件,请前去查看", FMessage, memberName: memberName, defaultLoggerName: defaultLoggerName);
+                    break;
+            }
+        }
+
+        #endregion 有新日志记录产生时处理方式
+
+        #region 发送危险日志发生事件
+
+        /// <summary>
+        /// 发送危险日志发生事件
+        /// </summary>
+        /// <param name="title">发送标题</param>
+        /// <param name="message">发送内容</param>
+        /// <returns></returns>
+        private async Task SendDangerLogHappendEventAsync(string title, string message, [CallerMemberName] string memberName = null, string defaultLoggerName = null)
+        {
+            await ExceptionHelper.IgnoreButLogExceptionAsync(async () =>
+           {
+               IEventBus eventBus = ObjectContainer.Current.Resolve<IEventBus>();
+               DangerLogHappendEvent dangerLogHappendEvent = new DangerLogHappendEvent()
+               {
+                   ReceiverEmailList = Chargers?.Select(m => m.MemberEmail).ToArray(),
+                   Title = title,
+                   Message = message
+               };
+               await eventBus.PublishAsync(dangerLogHappendEvent);
+           }, memberName: memberName, defaultLoggerName: defaultLoggerName);
+        }
+
+        #endregion 发送危险日志发生事件
     }
 }

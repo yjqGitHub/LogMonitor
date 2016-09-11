@@ -80,5 +80,10 @@ namespace LogMonitor.Domain.Model
         /// 添加时间
         /// </summary>
         public DateTime FAddTime { get; set; }
+
+        /// <summary>
+        /// 是否查看
+        /// </summary>
+        public bool IsLooked { get; set; }
     }
 }
