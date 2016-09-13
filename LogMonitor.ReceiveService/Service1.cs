@@ -26,7 +26,7 @@ namespace LogMonitor.ReceiveService
 
         protected override void OnStart(string[] args)
         {
-            Start();
+            Task.Factory.StartNew(() => { Start(); });
         }
 
         protected override void OnStop()
@@ -44,10 +44,13 @@ namespace LogMonitor.ReceiveService
             {
                 MonitorLog(listenIpAddress, listenIpPort);
             });
-            Task.Factory.StartNew(() =>
-            {
-                Task monitorBrowseLogTask = MonitorBrowseLog(listenIpAddress, browseLogListenIpPort);
-            });
+
+            Task.Delay(2000);
+            Task monitorBrowseLogTask = MonitorBrowseLog(listenIpAddress, browseLogListenIpPort);
+            //Task.Factory.StartNew(() =>
+            //{
+            //    Task monitorBrowseLogTask = MonitorBrowseLog(listenIpAddress, browseLogListenIpPort);
+            //});
 
             LogDetailInfo logDetailInfo = LogDetailInfo.CreateDebugLog("服务开始", belongModule: SysContant.Module_ReceiveService);
             _logger.Debug(logDetailInfo.ToJson());

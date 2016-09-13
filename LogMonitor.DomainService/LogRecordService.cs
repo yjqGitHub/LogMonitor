@@ -58,10 +58,10 @@ namespace LogMonitor.DomainService
                     FModuleCode = logDetailInfo.BelongModule
                 };
 
-                //查找并设置模块信息
-                SearchAndSetModuleInfo(logRecord);
-                //查找项目信息
-                SearchAndSetProjectInfo(logRecord);
+                ////查找并设置模块信息
+                //SearchAndSetModuleInfo(logRecord);
+                ////查找项目信息
+                //SearchAndSetProjectInfo(logRecord);
                 //获取管理员列表
                 var adminList = _userRepository.GetAdminList();
                 if (adminList != null && adminList.Count() > 0)

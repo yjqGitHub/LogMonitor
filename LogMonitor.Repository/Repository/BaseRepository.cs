@@ -25,7 +25,7 @@ namespace LogMonitor.Repository
         #region private field
 
         private readonly IDbFactory _dbFactory;
-        private readonly LogMonitorContext _logMonitorContext;
+        private LogMonitorContext _logMonitorContext;
         private readonly DbSet<T> _dbSet;
 
         #endregion private field
@@ -41,7 +41,7 @@ namespace LogMonitor.Repository
 
         #endregion .ctor
 
-        protected LogMonitorContext LogMonitorContext { get { return _logMonitorContext; } }
+        protected LogMonitorContext LogMonitorContext { get { return _logMonitorContext = (_logMonitorContext ?? _dbFactory.GetLogMonitorContext()); } }
 
         #region 增删改
 
