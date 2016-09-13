@@ -25,8 +25,7 @@ namespace LogMonitor.Repository.EntityMap
                 .IsUnicode(false)
                 .HasMaxLength(200);
             this.Property(m => m.FMessage)
-                .IsUnicode(true)
-                .HasMaxLength(800);
+                .IsUnicode(true);
             this.Property(m => m.FModuleCode)
                 .IsUnicode(false)
                 .HasMaxLength(50);

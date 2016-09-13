@@ -25,7 +25,7 @@ namespace LogMonitor.Infrastructure
         {
             Settings = new JsonSerializerSettings
             {
-                Converters = new List<JsonConverter> { new IsoDateTimeConverter() { DateTimeFormat = "yyyyMMdd HH:mm:ss" } },
+                Converters = new List<JsonConverter> { new IsoDateTimeConverter() { DateTimeFormat = "yyyyMMdd HH:mm:ss ff" } },
                 ContractResolver = new CustomContractResolver(),
                 ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
             };
@@ -57,7 +57,7 @@ namespace LogMonitor.Infrastructure
         /// <returns></returns>
         public T Deserialize<T>(string value) where T : class
         {
-            return JsonConvert.DeserializeObject<T>(JObject.Parse(value).ToString(), Settings);
+            return JsonConvert.DeserializeObject<T>(value, Settings);
         }
 
         private class CustomContractResolver : DefaultContractResolver

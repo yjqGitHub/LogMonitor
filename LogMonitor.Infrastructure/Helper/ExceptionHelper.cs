@@ -154,9 +154,9 @@ namespace LogMonitor.Infrastructure
         public static string GetExceptionMsg(Exception ex, [CallerMemberName] string memberName = null)
         {
             StringBuilder errorBuilder = new StringBuilder();
+            errorBuilder.AppendFormat("Message：{0}", ex.Message).AppendLine();
             errorBuilder.AppendFormat("Source：{0}", ex.Source).AppendLine();
             errorBuilder.AppendFormat("StackTrace：{0}", ex.StackTrace).AppendLine();
-            errorBuilder.AppendFormat("Message：{0}", ex.Message).AppendLine();
             if (ex.InnerException != null)
             {
                 if (!string.Equals(ex.Message, ex.InnerException.Message, StringComparison.OrdinalIgnoreCase))
@@ -190,7 +190,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>错误日志的详情</returns>
         public static LogDetailInfo GetErrorLog(Exception ex, [CallerMemberName] string memberName = null, string belongModule = null)
         {
-            return LogDetailInfo.CreateErrorLog(GetExceptionMsg(ex, memberName: memberName),belongModule );
+            return LogDetailInfo.CreateErrorLog(GetExceptionMsg(ex, memberName: memberName), belongModule);
         }
 
         /// <summary>

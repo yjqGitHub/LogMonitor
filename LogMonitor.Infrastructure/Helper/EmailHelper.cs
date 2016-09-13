@@ -87,7 +87,11 @@ namespace LogMonitor.Infrastructure
             client.Timeout = 9999;
             client.UseDefaultCredentials = true;
             client.Credentials = new NetworkCredential(serviceMailAddress, serviceMailPwd);
-            await client.SendMailAsync(mail);
+            try
+            {
+                await client.SendMailAsync(mail);
+            }
+            catch { }
         }
 
         #endregion 发送邮件
@@ -159,7 +163,11 @@ namespace LogMonitor.Infrastructure
             client.Timeout = 9999;
             client.UseDefaultCredentials = true;
             client.Credentials = new NetworkCredential(serviceMailAddress, serviceMailPwd);
-            client.Send(mail);
+            try
+            {
+                client.Send(mail);
+            }
+            catch { }
         }
 
         #endregion 发送邮件
