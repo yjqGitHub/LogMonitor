@@ -1,6 +1,7 @@
 ﻿using LogMonitor.Domain.Model;
 using LogMonitor.IRepository;
 using LogMonitor.Repository.DbManage;
+using System;
 using System.Collections.Generic;
 
 /*

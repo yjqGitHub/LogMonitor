@@ -54,7 +54,8 @@ namespace LogMonitor.Infrastructure
         /// </summary>
         /// <param name="assemblies"></param>
         /// <param name="predicate"></param>
-        void RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null);
+        /// <param name="life">存活周期</param>
+        void RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null, LifeStyle life = LifeStyle.PerLifetimeScope);
 
         /// <summary>Resolve a service.
         /// </summary>

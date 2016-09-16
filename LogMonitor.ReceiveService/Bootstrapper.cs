@@ -31,12 +31,12 @@ namespace LogMonitor.ReceiveService
                                    .UseAutofac()
                                    .UseJsonNet()
                                    .UseLog4Net()
-                                   .SetDefault<IDbFactory, DbFactory>()
-                                   .SetDefault<ILogMonitorUnitOfWork, LogMonitorUnitOfWork>()
-                                   .RegisterAssemblyTypes(repository, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Repository.Repository"))
-                                   .RegisterAssemblyTypes(domainService, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.DomainService"))
+                                   .SetDefault<IDbFactory, DbFactory>(life:LifeStyle.PerLifetimeScope)
+                                   .SetDefault<ILogMonitorUnitOfWork, LogMonitorUnitOfWork>(life: LifeStyle.Transient)
+                                   .RegisterAssemblyTypes(repository, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Repository.Repository"),LifeStyle.Transient)
+                                   .RegisterAssemblyTypes(domainService, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.DomainService"), LifeStyle.Transient)
                                    .RegisterAssemblyTypes(application, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Application.Implemenet"))
-                                   .RegisterAssemblyTypes(damianEvent,m=>m.Namespace!=null&&m.Namespace.StartsWith("LogMonitor.Domain.DomainEvent"))
+                                   .RegisterAssemblyTypes(damianEvent,m=>m.Namespace!=null&&m.Namespace.StartsWith("LogMonitor.Domain.DomainEvent"), LifeStyle.Transient)
                                    ;
 
             var logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(SysContant.LoggerName_Default);

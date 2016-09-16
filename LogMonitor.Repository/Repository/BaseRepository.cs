@@ -35,13 +35,15 @@ namespace LogMonitor.Repository
         public BaseRepository(IDbFactory dbFactory)
         {
             _dbFactory = dbFactory;
-            _logMonitorContext = _logMonitorContext ?? _dbFactory.GetLogMonitorContext();
-            _dbSet = _logMonitorContext.Set<T>();
+            _dbSet = LogMonitorContext.Set<T>();
         }
 
         #endregion .ctor
 
-        protected LogMonitorContext LogMonitorContext { get { return _logMonitorContext = (_logMonitorContext ?? _dbFactory.GetLogMonitorContext()); } }
+        protected LogMonitorContext LogMonitorContext
+        {
+            get { return _logMonitorContext ?? (_logMonitorContext = _dbFactory.GetLogMonitorContext()); }
+        }
 
         #region 增删改
 

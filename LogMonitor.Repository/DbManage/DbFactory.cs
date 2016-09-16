@@ -17,7 +17,7 @@ namespace LogMonitor.Repository.DbManage
 
         public LogMonitorContext GetLogMonitorContext()
         {
-            return _logMonitorContext = _logMonitorContext ?? new LogMonitorContext();
+            return _logMonitorContext ?? (_logMonitorContext = new LogMonitorContext());
         }
 
         protected override void DisposeCode()

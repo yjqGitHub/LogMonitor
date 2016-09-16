@@ -12,15 +12,12 @@ namespace LogMonitor.ReceiveService
 {
     public partial class Service1 : ServiceBase
     {
-        private readonly ILogRecordApplication _logRecordApplication;
-        private readonly IBrowseLogRecordApplication _browseLogRecordApplication;
         private readonly ILogger _logger;
 
         public Service1()
         {
             InitializeComponent();
-            _logRecordApplication = ObjectContainer.Current.Resolve<ILogRecordApplication>();
-            _browseLogRecordApplication = ObjectContainer.Current.Resolve<IBrowseLogRecordApplication>();
+
             _logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(SysContant.LoggerName_Default);
         }
 
@@ -46,11 +43,10 @@ namespace LogMonitor.ReceiveService
             });
 
             Task.Delay(2000);
-            Task monitorBrowseLogTask = MonitorBrowseLog(listenIpAddress, browseLogListenIpPort);
-            //Task.Factory.StartNew(() =>
-            //{
-            //    Task monitorBrowseLogTask = MonitorBrowseLog(listenIpAddress, browseLogListenIpPort);
-            //});
+            Task.Factory.StartNew(() =>
+            {
+                MonitorBrowseLog(listenIpAddress, browseLogListenIpPort);
+            });
 
             LogDetailInfo logDetailInfo = LogDetailInfo.CreateDebugLog("服务开始", belongModule: SysContant.Module_ReceiveService);
             _logger.Debug(logDetailInfo.ToJson());
@@ -78,6 +74,8 @@ namespace LogMonitor.ReceiveService
                     bool isSuccess = ExceptionHelper.IgnoreButLogException(() =>
                     {
                         string logDetail = buffer.GetString();
+
+                        ILogRecordApplication _logRecordApplication = ObjectContainer.Current.Resolve<ILogRecordApplication>();
                         return _logRecordApplication.AddLogRecord(logDetail, defaultLoggerName: SysContant.LoggerName_Default);
                     }, defaultLoggerName: SysContant.LoggerName_Default);
                 }
@@ -97,7 +95,7 @@ namespace LogMonitor.ReceiveService
         /// <param name="ipAddress"></param>
         /// <param name="port"></param>
         /// <returns></returns>
-        private async Task MonitorBrowseLog(string ipAddress, int port)
+        private void MonitorBrowseLog(string ipAddress, int port)
         {
             IPAddress address = IPAddress.Parse(ipAddress);
             IPEndPoint remoteEndPoint = new IPEndPoint(address, 0);
@@ -111,11 +109,12 @@ namespace LogMonitor.ReceiveService
                 while (true)
                 {
                     buffer = udpClient.Receive(ref remoteEndPoint);
-                    bool isSuccess = await ExceptionHelper.IgnoreButLogExceptionAsync(async () =>
-                    {
-                        string logDetail = buffer.GetString();
-                        return await _browseLogRecordApplication.AddBrowseLogAsync(logDetail, defaultLoggerName: SysContant.LoggerName_Default);
-                    }, defaultLoggerName: SysContant.LoggerName_Default);
+                    bool isSuccess = ExceptionHelper.IgnoreButLogException(() =>
+                  {
+                      string logDetail = buffer.GetString();
+                      IBrowseLogRecordApplication _browseLogRecordApplication = ObjectContainer.Current.Resolve<IBrowseLogRecordApplication>();
+                      return _browseLogRecordApplication.AddBrowseLog(logDetail, defaultLoggerName: SysContant.LoggerName_Default);
+                  }, defaultLoggerName: SysContant.LoggerName_Default);
                 }
             }
             catch (Exception ex)

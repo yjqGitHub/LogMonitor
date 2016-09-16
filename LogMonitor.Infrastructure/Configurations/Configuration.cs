@@ -42,9 +42,9 @@ namespace LogMonitor.Infrastructure.Configurations
             return this;
         }
 
-        public Configuration RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null)
+        public Configuration RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null, LifeStyle life = LifeStyle.Transient)
         {
-            ObjectContainer.RegisterAssemblyTypes(assemblies, predicate);
+            ObjectContainer.RegisterAssemblyTypes(assemblies, predicate, life);
             return this;
         }
     }

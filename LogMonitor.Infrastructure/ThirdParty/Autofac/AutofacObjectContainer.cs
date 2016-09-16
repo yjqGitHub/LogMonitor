@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Core.Lifetime;
 using System;
 using System.Reflection;
 
@@ -49,9 +50,18 @@ namespace LogMonitor.Infrastructure
             {
                 registrationBuilder.Named(serviceName, implementationType);
             }
-            if (life == LifeStyle.Singleton)
+            switch (life)
             {
-                registrationBuilder.SingleInstance();
+                case LifeStyle.Singleton:
+                    registrationBuilder.SingleInstance();
+                    break;
+
+                case LifeStyle.PerLifetimeScope:
+                    registrationBuilder.InstancePerLifetimeScope();
+                    break;
+
+                default:
+                    break;
             }
             builder.Update(_container);
         }
@@ -71,9 +81,18 @@ namespace LogMonitor.Infrastructure
             {
                 registrationBuilder.Named(serviceName, serviceType);
             }
-            if (life == LifeStyle.Singleton)
+            switch (life)
             {
-                registrationBuilder.SingleInstance();
+                case LifeStyle.Singleton:
+                    registrationBuilder.SingleInstance();
+                    break;
+
+                case LifeStyle.PerLifetimeScope:
+                    registrationBuilder.InstancePerLifetimeScope();
+                    break;
+
+                default:
+                    break;
             }
             builder.Update(_container);
         }
@@ -95,10 +114,20 @@ namespace LogMonitor.Infrastructure
             {
                 registrationBuilder.Named<TService>(serviceName);
             }
-            if (life == LifeStyle.Singleton)
+            switch (life)
             {
-                registrationBuilder.SingleInstance();
+                case LifeStyle.Singleton:
+                    registrationBuilder.SingleInstance();
+                    break;
+
+                case LifeStyle.PerLifetimeScope:
+                    registrationBuilder.InstancePerLifetimeScope();
+                    break;
+
+                default:
+                    break;
             }
+
             builder.Update(_container);
         }
 
@@ -127,7 +156,8 @@ namespace LogMonitor.Infrastructure
         /// </summary>
         /// <param name="predicate">删选程序集</param>
         /// <param name="assemblies">程序集</param>
-        public void RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null)
+        /// <param name="life">注册实例存活周期</param>
+        public void RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null, LifeStyle life = LifeStyle.PerLifetimeScope)
         {
             if (assemblies != null)
             {
@@ -137,7 +167,20 @@ namespace LogMonitor.Infrastructure
                 {
                     registrationBuilder.Where(predicate);
                 }
-                registrationBuilder.AsImplementedInterfaces();
+                switch (life)
+                {
+                    case LifeStyle.Singleton:
+                        registrationBuilder.AsImplementedInterfaces().SingleInstance();
+                        break;
+
+                    case LifeStyle.PerLifetimeScope:
+                        registrationBuilder.AsImplementedInterfaces().InstancePerLifetimeScope();
+                        break;
+
+                    default:
+                        registrationBuilder.AsImplementedInterfaces();
+                        break;
+                }
                 builder.Update(_container);
             }
         }
@@ -153,7 +196,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>注册的服务类型</returns>
         public TService Resolve<TService>() where TService : class
         {
-            return _container.Resolve<TService>();
+            return Scope().Resolve<TService>();
         }
 
         /// <summary>
@@ -163,7 +206,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>注册的服务类型</returns>
         public object Resolve(Type serviceType)
         {
-            return _container.Resolve(serviceType);
+            return Scope().Resolve(serviceType);
         }
 
         /// <summary>
@@ -174,7 +217,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>成功 则返回true</returns>
         public bool TryResolve<TService>(out TService instance) where TService : class
         {
-            return _container.TryResolve(out instance);
+            return Scope().TryResolve(out instance);
         }
 
         /// <summary>
@@ -185,7 +228,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>成功 则返回true</returns>
         public bool TryResolve(Type serviceType, out object instance)
         {
-            return _container.TryResolve(serviceType, out instance);
+            return Scope().TryResolve(serviceType, out instance);
         }
 
         /// <summary>
@@ -196,7 +239,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>服务类型</returns>
         public TService ResolveNamed<TService>(string serviceName) where TService : class
         {
-            return _container.ResolveNamed<TService>(serviceName);
+            return Scope().ResolveNamed<TService>(serviceName);
         }
 
         /// <summary>
@@ -207,7 +250,7 @@ namespace LogMonitor.Infrastructure
         /// <returns>服务类型</returns>
         public object ResolveNamed(string serviceName, Type serviceType)
         {
-            return _container.ResolveNamed(serviceName, serviceType);
+            return Scope().ResolveNamed(serviceName, serviceType);
         }
 
         /// <summary>
@@ -219,9 +262,30 @@ namespace LogMonitor.Infrastructure
         /// <returns>成功 则返回true</returns>
         public bool TryResolveNamed(string serviceName, Type serviceType, out object instance)
         {
-            return _container.TryResolveNamed(serviceName, serviceType, out instance);
+            return Scope().TryResolveNamed(serviceName, serviceType, out instance);
         }
 
         #endregion Resolve
+
+        public ILifetimeScope Scope()
+        {
+            try
+            {
+                //if (HttpContext.Current != null)
+                //    return AutofacDependencyResolver.Current.RequestLifetimeScope;
+
+                //when such lifetime scope is returned, you should be sure that it'll be disposed once used (e.g. in schedule tasks)
+                return Container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
+            }
+            catch (Exception exc)
+            {
+                //we can get an exception here if RequestLifetimeScope is already disposed
+                //for example, requested in or after "Application_EndRequest" handler
+                //but note that usually it should never happen
+
+                //when such lifetime scope is returned, you should be sure that it'll be disposed once used (e.g. in schedule tasks)
+                return Container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
+            }
+        }
     }
 }

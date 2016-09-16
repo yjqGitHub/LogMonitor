@@ -155,8 +155,6 @@ namespace LogMonitor.Infrastructure
         {
             StringBuilder errorBuilder = new StringBuilder();
             errorBuilder.AppendFormat("Message：{0}", ex.Message).AppendLine();
-            errorBuilder.AppendFormat("Source：{0}", ex.Source).AppendLine();
-            errorBuilder.AppendFormat("StackTrace：{0}", ex.StackTrace).AppendLine();
             if (ex.InnerException != null)
             {
                 if (!string.Equals(ex.Message, ex.InnerException.Message, StringComparison.OrdinalIgnoreCase))
@@ -164,6 +162,9 @@ namespace LogMonitor.Infrastructure
                     errorBuilder.AppendFormat("InnerException：{0}", ex.InnerException.Message).AppendLine();
                 }
             }
+            errorBuilder.AppendFormat("Source：{0}", ex.Source).AppendLine();
+            errorBuilder.AppendFormat("StackTrace：{0}", ex.StackTrace).AppendLine();
+
             if (!string.IsNullOrWhiteSpace(memberName))
             {
                 errorBuilder.AppendFormat("CallerMemberName：{0}", memberName).AppendLine();
