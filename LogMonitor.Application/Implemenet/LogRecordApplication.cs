@@ -69,7 +69,7 @@ namespace LogMonitor.Application.Implemenet
               if (logRecord != null)
               {
                   _logRecordRepository.Add(logRecord);
-                  //Task haveNewRecordTask = logRecord.HaveNewRecordAsync();
+                  Task haveNewRecordTask = logRecord.HaveNewRecordAsync();
                   return _logMonitorUnitOfWork.Commit();
               }
               return false;
