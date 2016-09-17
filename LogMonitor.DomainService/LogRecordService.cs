@@ -4,7 +4,7 @@ using LogMonitor.Infrastructure;
 using LogMonitor.IRepository;
 using System;
 using System.Linq;
-
+using LogMonitor.Infrastructure.Extension;
 /*
 * Author              :    yjq
 * Email               :    425527169@qq.com
@@ -45,19 +45,16 @@ namespace LogMonitor.DomainService
             string[] details = logInfo.Split(new string[] { "$$" }, StringSplitOptions.None);
             if (details.Length >= 5)
             {
-                LogDetailInfo logDetailInfo = _jsonSerializer.Deserialize<LogDetailInfo>(details[4]);
-
                 LogRecord logRecord = new LogRecord()
                 {
-                    FCreateTime = logDetailInfo.CreateTime,
-                    FAddTime = DateTime.Now,
+                    FCreateTime = Convert.ToDateTime(details[0]),
                     FAppDomain = details[1],
                     FProjectCode = details[3],
-                    FLogType = logDetailInfo.LogType,
-                    FMessage = logDetailInfo.Message,
-                    FModuleCode = logDetailInfo.BelongModule
+                    FMessage = details[4],
+                    FAddTime = DateTime.Now,
+                    FIsNoticed = false,
+                    FLogType = details[2].ToLogType()
                 };
-
                 //查找并设置模块信息
                 SearchAndSetModuleInfo(logRecord);
                 //查找项目信息

@@ -34,6 +34,11 @@ namespace LogMonitor.Infrastructure
         /// <summary>
         /// 警告
         /// </summary>
-        Warning = 5
+        Warning = 5,
+
+        /// <summary>
+        /// 未知类型
+        /// </summary>
+        Unfind = 15
     }
 }

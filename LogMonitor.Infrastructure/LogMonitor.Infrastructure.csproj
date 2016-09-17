@@ -60,6 +60,7 @@
     <Compile Include="Container\LifeStyle.cs" />
     <Compile Include="Container\ObjectContainer.cs" />
     <Compile Include="Extension\IpAddressExtention.cs" />
+    <Compile Include="Extension\LogTypeEnumExtension.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Extension\ByteExtension.cs" />
     <Compile Include="Extension\IEnumerableExtensions.cs" />
