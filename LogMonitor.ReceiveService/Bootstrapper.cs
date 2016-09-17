@@ -26,17 +26,17 @@ namespace LogMonitor.ReceiveService
             var repository = Assembly.Load("LogMonitor.Repository");
             var domainService = Assembly.Load("LogMonitor.DomainService");
             var application = Assembly.Load("LogMonitor.Application");
-            var damianEvent= Assembly.Load("LogMonitor.Domain.DomainEvent");
+            var damianEvent = Assembly.Load("LogMonitor.Domain.DomainEvent");
             LogMonitorConfiguration.Create()
                                    .UseAutofac()
                                    .UseJsonNet()
                                    .UseLog4Net()
-                                   .SetDefault<IDbFactory, DbFactory>(life:LifeStyle.PerLifetimeScope)
+                                   .SetDefault<IDbFactory, DbFactory>(life: LifeStyle.PerLifetimeScope)
                                    .SetDefault<ILogMonitorUnitOfWork, LogMonitorUnitOfWork>(life: LifeStyle.PerLifetimeScope)
-                                   .RegisterAssemblyTypes(repository, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Repository.Repository"),LifeStyle.PerLifetimeScope)
+                                   .RegisterAssemblyTypes(repository, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Repository.Repository"), LifeStyle.PerLifetimeScope)
                                    .RegisterAssemblyTypes(domainService, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.DomainService"), LifeStyle.PerLifetimeScope)
                                    .RegisterAssemblyTypes(application, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Application.Implemenet"))
-                                   .RegisterAssemblyTypes(damianEvent,m=>m.Namespace!=null&&m.Namespace.StartsWith("LogMonitor.Domain.DomainEvent"), LifeStyle.PerLifetimeScope)
+                                   .RegisterAssemblyTypes(damianEvent, m => m.Namespace != null && m.Namespace.StartsWith("LogMonitor.Domain.DomainEvent"), LifeStyle.PerLifetimeScope)
                                    ;
 
             var logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(SysContant.LoggerName_Default);
@@ -45,13 +45,11 @@ namespace LogMonitor.ReceiveService
                 Exception ex = e.ExceptionObject as Exception;
                 if (ex != null)
                 {
-                    string errorMessage = ExceptionHelper.GetJsonErrorLog(ex, belongModule: SysContant.Module_ReceiveService);
-                    logger.Error(errorMessage);
+                    logger.Error(ex.ToErrorMsg(memberName: "UnhandledException"));
                 }
                 else
                 {
-                    LogDetailInfo logDetailInfo = LogDetailInfo.CreateErrorLog(string.Format("Unhandled exception: {0}", e.ExceptionObject), SysContant.Module_ReceiveService);
-                    logger.Error(logDetailInfo.ToJson());
+                    logger.Error(string.Format("Unhandled exception: {0}", e.ExceptionObject));
                 }
             };
         }

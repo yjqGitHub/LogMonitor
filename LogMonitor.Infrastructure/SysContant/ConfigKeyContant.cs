@@ -20,7 +20,5 @@ namespace LogMonitor.Infrastructure
         /// 服务器邮箱密码的Key
         /// </summary>
         public const string Key_ServiceMailPwd = "ServiceMailPwd";
-
-        public static object statiscLock = new object();
     }
 }

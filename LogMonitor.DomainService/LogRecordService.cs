@@ -47,7 +47,7 @@ namespace LogMonitor.DomainService
             {
                 LogRecord logRecord = new LogRecord()
                 {
-                    FCreateTime = Convert.ToDateTime(details[0]),
+                    FCreateTime = Convert.ToDateTime(details[0].Split(',')[0]),
                     FAppDomain = details[1],
                     FProjectCode = details[3],
                     FMessage = details[4],

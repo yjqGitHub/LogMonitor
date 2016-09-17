@@ -28,8 +28,7 @@ namespace LogMonitor.ReceiveService
 
         protected override void OnStop()
         {
-            LogDetailInfo logDetailInfo = LogDetailInfo.CreateWarningLog("服务停止", belongModule: SysContant.Module_ReceiveService);
-            _logger.Warn(logDetailInfo.ToJson());
+            _logger.Warn("服务停止");
         }
 
         private void Start()
@@ -48,8 +47,7 @@ namespace LogMonitor.ReceiveService
                 MonitorBrowseLog(listenIpAddress, browseLogListenIpPort);
             });
 
-            LogDetailInfo logDetailInfo = LogDetailInfo.CreateDebugLog("服务开始", belongModule: SysContant.Module_ReceiveService);
-            _logger.Debug(logDetailInfo.ToJson());
+            _logger.Debug(("服务开始"));
         }
 
         /// <summary>
@@ -66,8 +64,7 @@ namespace LogMonitor.ReceiveService
             try
             {
                 udpClient = new UdpClient(port);
-                LogDetailInfo logDetailInfo = LogDetailInfo.CreateDebugLog("监听开始 MonitorLog", belongModule: SysContant.Module_ReceiveService);
-                _logger.Debug(logDetailInfo.ToJson());
+                _logger.Debug("监听开始 MonitorLog");
                 while (true)
                 {
                     buffer = udpClient.Receive(ref remoteEndPoint);
@@ -82,10 +79,8 @@ namespace LogMonitor.ReceiveService
             }
             catch (Exception ex)
             {
-                string errorMsg = ExceptionHelper.GetJsonErrorLog(ex, belongModule: SysContant.Module_ReceiveService);
-                _logger.Error(errorMsg);
-                LogDetailInfo logDetailInfo = LogDetailInfo.CreateFatalLog("MonitorLog UDP监听出异常了", belongModule: SysContant.Module_ReceiveService);
-                _logger.Fatal(logDetailInfo.ToJson());
+                _logger.Error(ex.ToErrorMsg(memberName: "MonitorLog"));
+                _logger.Fatal("MonitorLog UDP监听出异常了");
             }
         }
 
@@ -104,8 +99,7 @@ namespace LogMonitor.ReceiveService
             try
             {
                 udpClient = new UdpClient(port);
-                LogDetailInfo logDetailInfo = LogDetailInfo.CreateDebugLog("监听开始 MonitorBrowseLog", belongModule: SysContant.Module_ReceiveService);
-                _logger.Debug(logDetailInfo.ToJson());
+                _logger.Debug("监听开始 MonitorBrowseLog");
                 while (true)
                 {
                     buffer = udpClient.Receive(ref remoteEndPoint);
@@ -119,10 +113,8 @@ namespace LogMonitor.ReceiveService
             }
             catch (Exception ex)
             {
-                string errorMsg = ExceptionHelper.GetJsonErrorLog(ex, belongModule: SysContant.Module_ReceiveService);
-                _logger.Error(errorMsg);
-                LogDetailInfo logDetailInfo = LogDetailInfo.CreateFatalLog("MonitorBrowseLog UDP监听出异常了", belongModule: SysContant.Module_ReceiveService);
-                _logger.Fatal(logDetailInfo.ToJson());
+                _logger.Error(ex.ToErrorMsg(memberName: "MonitorBrowseLog"));
+                _logger.Fatal("MonitorBrowseLog UDP监听出异常了");
             }
         }
     }

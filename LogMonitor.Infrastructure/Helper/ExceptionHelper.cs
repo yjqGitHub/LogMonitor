@@ -1,8 +1,7 @@
-﻿using System;
+﻿using LogMonitor.Infrastructure.Extension;
+using System;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using static LogMonitor.Infrastructure.WebHelper;
 
 /*
 * Author              :    yjq
@@ -73,7 +72,7 @@ namespace LogMonitor.Infrastructure
             catch (Exception ex)
             {
                 ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LoggerName_Default);
-                logger.Error(GetJsonErrorLog(ex, memberName: memberName));
+                logger.Error(ex.ToErrorMsg(memberName: memberName));
             }
         }
 
@@ -92,7 +91,7 @@ namespace LogMonitor.Infrastructure
             catch (Exception ex)
             {
                 ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LoggerName_Default);
-                logger.Error(GetJsonErrorLog(ex, memberName: memberName));
+                logger.Error(ex.ToErrorMsg(memberName: memberName));
             }
         }
 
@@ -114,7 +113,7 @@ namespace LogMonitor.Infrastructure
             catch (Exception ex)
             {
                 ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LoggerName_Default);
-                logger.Error(GetJsonErrorLog(ex, memberName: memberName));
+                logger.Error(ex.ToErrorMsg(memberName: memberName));
                 return defaultValue;
             }
         }
@@ -137,76 +136,11 @@ namespace LogMonitor.Infrastructure
             catch (Exception ex)
             {
                 ILogger logger = ObjectContainer.Current.Resolve<ILoggerFactory>().Create(defaultLoggerName ?? SysContant.LoggerName_Default);
-                logger.Error(GetJsonErrorLog(ex, memberName: memberName));
+                logger.Error(ex.ToErrorMsg(memberName: memberName));
                 return defaultValue;
             }
         }
 
         #endregion 忽略异常，但记录异常
-
-        #region 获取错误异常信息
-
-        /// <summary>
-        /// 获取错误异常信息
-        /// </summary>
-        /// <param name="ex">异常</param>
-        /// <returns>错误异常信息</returns>
-        public static string GetExceptionMsg(Exception ex, [CallerMemberName] string memberName = null)
-        {
-            StringBuilder errorBuilder = new StringBuilder();
-            errorBuilder.AppendFormat("Message：{0}", ex.Message).AppendLine();
-            if (ex.InnerException != null)
-            {
-                if (!string.Equals(ex.Message, ex.InnerException.Message, StringComparison.OrdinalIgnoreCase))
-                {
-                    errorBuilder.AppendFormat("InnerException：{0}", ex.InnerException.Message).AppendLine();
-                }
-            }
-            errorBuilder.AppendFormat("Source：{0}", ex.Source).AppendLine();
-            errorBuilder.AppendFormat("StackTrace：{0}", ex.StackTrace).AppendLine();
-
-            if (!string.IsNullOrWhiteSpace(memberName))
-            {
-                errorBuilder.AppendFormat("CallerMemberName：{0}", memberName).AppendLine();
-            }
-            if (IsHaveHttpContext())
-            {
-                errorBuilder.AppendFormat("RealIP：{0}", GetRealIP()).AppendLine();
-                errorBuilder.AppendFormat("HttpRequestUrl：{0}", GetHttpRequestUrl()).AppendLine();
-                errorBuilder.AppendFormat("UserAgent：{0}", GetUserAgent()).AppendLine();
-            }
-
-            return errorBuilder.ToString();
-        }
-
-        #endregion 获取错误异常信息
-
-        #region 获取错误日志的详情
-
-        /// <summary>
-        /// 获取错误日志的详情
-        /// </summary>
-        /// <param name="ex">错误异常</param>
-        /// <param name="memberName">调用的成员名字</param>
-        /// <returns>错误日志的详情</returns>
-        public static LogDetailInfo GetErrorLog(Exception ex, [CallerMemberName] string memberName = null, string belongModule = null)
-        {
-            return LogDetailInfo.CreateErrorLog(GetExceptionMsg(ex, memberName: memberName), belongModule);
-        }
-
-        /// <summary>
-        /// 获取Json格式的错误日志详情
-        /// </summary>
-        /// <param name="ex">错误异常</param>
-        /// <param name="memberName">调用的成员名字</param>
-        /// <returns>Json格式的错误日志详情</returns>
-        public static string GetJsonErrorLog(Exception ex, [CallerMemberName] string memberName = null, string belongModule = null)
-        {
-            IJsonSerializer jsonSerializer = ObjectContainer.Current.Resolve<IJsonSerializer>();
-            LogDetailInfo logDetailInfo = GetErrorLog(ex, memberName: memberName, belongModule: belongModule);
-            return jsonSerializer.Serialize(logDetailInfo);
-        }
-
-        #endregion 获取错误日志的详情
     }
 }

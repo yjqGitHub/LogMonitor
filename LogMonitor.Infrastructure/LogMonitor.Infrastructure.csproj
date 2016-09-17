@@ -59,6 +59,7 @@
     <Compile Include="Container\IObjectContainer.cs" />
     <Compile Include="Container\LifeStyle.cs" />
     <Compile Include="Container\ObjectContainer.cs" />
+    <Compile Include="Extension\ExceptionExtension.cs" />
     <Compile Include="Extension\IpAddressExtention.cs" />
     <Compile Include="Extension\LogTypeEnumExtension.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="Logger\BrowseLogRecordDetailInfo.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\ILoggerFactory.cs" />
-    <Compile Include="Logger\LogDetailInfo.cs" />
     <Compile Include="Logger\LogTypeEnum.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
