@@ -42,8 +42,10 @@
   <ItemGroup>
     <Compile Include="EventBus.cs" />
     <Compile Include="EventHandlers\SendEmailEventHandler.cs" />
+    <Compile Include="EventHandlers\UserLoginEventHandler.cs" />
     <Compile Include="Events\DangerLogHappendEvent.cs" />
     <Compile Include="Events\SendEmailEvent.cs" />
+    <Compile Include="Events\UserLoginEvent.cs" />
     <Compile Include="IEvent.cs" />
     <Compile Include="IEventBus.cs" />
     <Compile Include="IEventHandler.cs" />

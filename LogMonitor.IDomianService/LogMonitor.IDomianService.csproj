@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IBrowseLogRecordDomainService.cs" />
     <Compile Include="ILogRecordService.cs" />
+    <Compile Include="IUserDomainService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

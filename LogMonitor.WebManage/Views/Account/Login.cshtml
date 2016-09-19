@@ -1,4 +1,6 @@
-﻿@{
+﻿@model LogMonitor.WebManage.Models.LoginModel
+
+@{
     Layout = null;
 }
 
@@ -27,6 +29,7 @@
     <![endif]-->
     <link rel="stylesheet" href="/Content/css/ace-rtl.min.css" />
 
+    <link href="~/Content/Site.css" rel="stylesheet" />
     <!--[if lte IE 9]>
       <link rel="stylesheet" href="/Content/css/ace-ie.min.css" />
     <![endif]-->
@@ -64,19 +67,21 @@
                                         </h4>
 
                                         <div class="space-6"></div>
-
-                                        <form>
+                                        @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                                        {
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="用户名" />
+                                                        @Html.TextBoxFor(m => m.UserName, new { @class= "form-control", @placeholder = "用户名" })
+                                                        @Html.ValidationMessageFor(m => m.UserName)
                                                         <i class="ace-icon fa fa-user"></i>
                                                     </span>
                                                 </label>
 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="password" class="form-control" placeholder="密码" />
+                                                        @Html.TextBoxFor(m => m.Pwd, new { @class = "form-control", @placeholder = "密码" })
+                                                        @Html.ValidationMessageFor(m=>m.Pwd)
                                                         <i class="ace-icon fa fa-lock"></i>
                                                     </span>
                                                 </label>
@@ -85,11 +90,11 @@
 
                                                 <div class="clearfix">
                                                     <label class="inline">
-                                                        <input type="checkbox" class="ace" />
+                                                        <input type="checkbox" class="ace" name="IsRemind" id="IsRemind" />
                                                         <span class="lbl"> 记住密码</span>
                                                     </label>
 
-                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110">登录</span>
                                                     </button>
@@ -97,7 +102,8 @@
 
                                                 <div class="space-4"></div>
                                             </fieldset>
-                                        </form>
+                                        }
+
                                     </div><!-- /.widget-main -->
 
                                 </div><!-- /.widget-body -->
@@ -120,7 +126,8 @@
     <script type="text/javascript">
         if ('ontouchstart' in document.documentElement) document.write("<script src='/Scripts/jquery.mobile.custom.min.js'>" + "<" + "/script>");
     </script>
-
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
         jQuery(function ($) {
@@ -131,8 +138,6 @@
                 $(target).addClass('visible');//show target
             });
         });
-
-
 
         //you don't need this, just used for changing background
         jQuery(function ($) {

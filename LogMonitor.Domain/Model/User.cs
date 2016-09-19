@@ -1,4 +1,8 @@
-﻿using System;
+﻿using LogMonitor.Domain.DomainEvent;
+using LogMonitor.Infrastructure;
+using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 /*
 * Author              :    yjq
@@ -70,5 +74,25 @@ namespace LogMonitor.Domain.Model
         /// 修改时间
         /// </summary>
         public DateTime? FModifyTime { get; set; }
+
+        #region 登录
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="memberName">调用的方法</param>
+        /// <param name="defaultLoggerName">默认记录器名字</param>
+        /// <returns></returns>
+        public async Task LoginAsync([CallerMemberName] string memberName = null, string defaultLoggerName = null)
+        {
+            await ExceptionHelper.IgnoreButLogExceptionAsync(async () =>
+            {
+                IEventBus eventBus = ObjectContainer.Current.Resolve<IEventBus>();
+                UserLoginEvent loginEvent = new UserLoginEvent(this.FId);
+                await eventBus.PublishAsync(loginEvent);
+            }, memberName: memberName, defaultLoggerName: defaultLoggerName);
+        }
+
+        #endregion 登录
     }
 }

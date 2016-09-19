@@ -1,18 +1,14 @@
 ﻿using LogMonitor.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LogMonitor.Infrastructure.Extension;
-
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 /*
 * Author              :    yjq
 * Email               :    425527169@qq.com
 * Create Time         :    2016/9/9 18:30:19
 * Class Version       :    v1.0.0.0
-* Class Description   :    
+* Class Description   :
 * Copyright @yjq 2016 . All rights reserved.
 */
 
@@ -23,7 +19,8 @@ namespace LogMonitor.Domain.DomainEvent
         public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
         {
             var eventHandlers = ObjectContainer.Current.Resolve<IEnumerable<IEventHandler<TEvent>>>();
-            eventHandlers.ForEach(eventHandle => {
+            eventHandlers.ForEach(eventHandle =>
+            {
                 eventHandle.Handle(@event);
             });
         }

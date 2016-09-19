@@ -34,6 +34,9 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -62,6 +65,7 @@
     <Compile Include="Extension\ExceptionExtension.cs" />
     <Compile Include="Extension\IpAddressExtention.cs" />
     <Compile Include="Extension\LogTypeEnumExtension.cs" />
+    <Compile Include="Extension\StringExtension.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Extension\ByteExtension.cs" />
     <Compile Include="Extension\IEnumerableExtensions.cs" />
@@ -72,12 +76,15 @@
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\ILoggerFactory.cs" />
     <Compile Include="Logger\LogTypeEnum.cs" />
+    <Compile Include="Sys\ValidationException.cs" />
+    <Compile Include="Sys\ValidationModel.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelfDisposable.cs" />
     <Compile Include="Serializing\IJsonSerializer.cs" />
     <Compile Include="SysContant\ConfigKeyContant.cs" />
     <Compile Include="SysContant\SysContant.cs" />
+    <Compile Include="Sys\OperateResultTypeEnum.cs" />
     <Compile Include="ThirdParty\Autofac\AutofacObjectContainer.cs" />
     <Compile Include="ThirdParty\IpData\IpDataHelper.cs" />
     <Compile Include="ThirdParty\IpData\IPLocation.cs" />

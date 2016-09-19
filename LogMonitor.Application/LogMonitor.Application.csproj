@@ -45,6 +45,8 @@
     <Compile Include="ILogRecordApplication.cs" />
     <Compile Include="Implemenet\BrowseLogRecordApplication.cs" />
     <Compile Include="Implemenet\LogRecordApplication.cs" />
+    <Compile Include="Implemenet\UserApplication.cs" />
+    <Compile Include="IUserApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
