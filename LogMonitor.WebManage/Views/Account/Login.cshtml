@@ -29,7 +29,13 @@
     <![endif]-->
     <link rel="stylesheet" href="/Content/css/ace-rtl.min.css" />
 
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style type="text/css">
+        .validation-summary-errors {
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    </style>
     <!--[if lte IE 9]>
       <link rel="stylesheet" href="/Content/css/ace-ie.min.css" />
     <![endif]-->
@@ -72,7 +78,7 @@
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        @Html.TextBoxFor(m => m.UserName, new { @class= "form-control", @placeholder = "用户名" })
+                                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "用户名" })
                                                         @Html.ValidationMessageFor(m => m.UserName)
                                                         <i class="ace-icon fa fa-user"></i>
                                                     </span>
@@ -81,7 +87,7 @@
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         @Html.TextBoxFor(m => m.Pwd, new { @class = "form-control", @placeholder = "密码" })
-                                                        @Html.ValidationMessageFor(m=>m.Pwd)
+                                                        @Html.ValidationMessageFor(m => m.Pwd)
                                                         <i class="ace-icon fa fa-lock"></i>
                                                     </span>
                                                 </label>

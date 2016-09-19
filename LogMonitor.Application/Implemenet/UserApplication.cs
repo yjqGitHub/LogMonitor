@@ -39,13 +39,13 @@ namespace LogMonitor.Application.Implemenet
         /// <returns></returns>
         public ValidationModel Login(string userName, string pwd)
         {
-            User user = _userRepository.LoadEntities(m => m.FUserName == userName).FirstOrDefault();
-            if (user == null)
-            {
-                return new ValidationModel(OperateResultTypeEnum.Failes, "账号或密码错误");
-            }
             try
             {
+                User user = _userRepository.LoadEntities(m => m.FUserName == userName).FirstOrDefault();
+                if (user == null)
+                {
+                    return new ValidationModel(OperateResultTypeEnum.Failes, "账号或密码错误");
+                }
                 _userDomainService.CheckPwd(user, pwd);
                 Task loginTask = user.LoginAsync();
             }

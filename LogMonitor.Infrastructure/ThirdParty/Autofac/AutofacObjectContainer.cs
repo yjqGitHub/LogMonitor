@@ -192,7 +192,7 @@ namespace LogMonitor.Infrastructure
                         break;
 
                     case LifeStyle.RequestLifetimeScope:
-                        registrationBuilder.InstancePerRequest();
+                        registrationBuilder.AsImplementedInterfaces().InstancePerRequest();
                         break;
 
                     default:
