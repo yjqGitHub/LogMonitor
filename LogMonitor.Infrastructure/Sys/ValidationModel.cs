@@ -32,6 +32,6 @@ namespace LogMonitor.Infrastructure
         /// <summary>
         /// 结果内容
         /// </summary>
-        public object Content { get; set; }
+        public object Content { get { return _content; } }
     }
 }

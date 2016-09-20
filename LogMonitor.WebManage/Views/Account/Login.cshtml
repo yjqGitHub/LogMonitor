@@ -86,7 +86,7 @@
 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        @Html.TextBoxFor(m => m.Pwd, new { @class = "form-control", @placeholder = "密码" })
+                                                        @Html.PasswordFor(m => m.Pwd, new { @class = "form-control", @placeholder = "密码" })
                                                         @Html.ValidationMessageFor(m => m.Pwd)
                                                         <i class="ace-icon fa fa-lock"></i>
                                                     </span>

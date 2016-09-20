@@ -49,7 +49,7 @@ namespace LogMonitor.Infrastructure.Extension
             {
                 cipherBuilder.Append(hashbyte.ToString(defaultProvider ?? "X2"));
             });
-            return hashBytes.ToString();
+            return cipherBuilder.ToString();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace LogMonitor.WebManage.Controllers
                 ValidationModel result = _userApplication.Login(model.UserName, model.Pwd);
                 if (result.State == OperateResultTypeEnum.Success)
                 {
-                    RedirectToLocal(returnUrl);
+                  return  RedirectToLocal(returnUrl);
                 }
                 else
                 {
