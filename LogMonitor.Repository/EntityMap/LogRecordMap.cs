@@ -23,7 +23,7 @@ namespace LogMonitor.Repository.EntityMap
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             this.Property(m => m.FAppDomain)
                 .IsUnicode(false)
-                .HasMaxLength(200);
+                .HasMaxLength(300);
             this.Property(m => m.FMessage)
                 .IsUnicode(true);
             this.Property(m => m.FModuleCode)

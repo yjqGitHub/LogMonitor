@@ -26,7 +26,7 @@ namespace LogMonitor.Repository.EntityMap
                 .IsUnicode(false);
             this.Property(m => m.FAppDomain)
                 .IsUnicode(false)
-                .HasMaxLength(200);
+                .HasMaxLength(300);
             this.Property(m => m.FIpAddress)
                 .IsUnicode(true)
                 .HasMaxLength(50);
@@ -47,7 +47,7 @@ namespace LogMonitor.Repository.EntityMap
                 .HasMaxLength(20);
             this.Property(m => m.FUserAgent)
                 .IsUnicode(false)
-                .HasMaxLength(200);
+                .HasMaxLength(500);
         }
     }
 }
