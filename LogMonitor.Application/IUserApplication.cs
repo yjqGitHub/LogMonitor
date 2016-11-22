@@ -1,4 +1,5 @@
-﻿using LogMonitor.Infrastructure;
+﻿using LogMonitor.Application.Dtos;
+using LogMonitor.Infrastructure;
 
 /*
 * Author              :    yjq
@@ -24,5 +25,16 @@ namespace LogMonitor.Application
         ValidationModel Login(string userName, string pwd);
 
         #endregion 登录
+
+        #region 获取用户列表
+
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <param name="selectDto">用户查询条件传输对象</param>
+        /// <returns>用户列表</returns>
+        PageResult<UserDto> GetUserList(UserSelectDto selectDto);
+
+        #endregion 获取用户列表
     }
 }

@@ -28,6 +28,6 @@ namespace LogMonitor.Infrastructure
         {
             if (string.IsNullOrWhiteSpace(argument))
                 throw new ArgumentNullException(argument, argumentName + " should not be null or empty.");
-        }
+        }IFormatProvider()
     }
 }

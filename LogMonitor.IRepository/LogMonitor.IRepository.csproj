@@ -50,9 +50,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogMonitor.Application.Dtos\LogMonitor.Application.Dtos.csproj">
+      <Project>{c8147196-25a0-42aa-8610-22e49e07caae}</Project>
+      <Name>LogMonitor.Application.Dtos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogMonitor.Domain\LogMonitor.Domain.csproj">
       <Project>{e90cf1cb-bd3a-4c3b-ab5a-ce9fb67c5e1b}</Project>
       <Name>LogMonitor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogMonitor.Infrastructure\LogMonitor.Infrastructure.csproj">
+      <Project>{e7056934-2509-4871-94f1-a32c43012bfa}</Project>
+      <Name>LogMonitor.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

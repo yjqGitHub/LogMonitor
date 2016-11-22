@@ -25,7 +25,7 @@ namespace LogMonitor.Infrastructure
         {
             Settings = new JsonSerializerSettings
             {
-                Converters = new List<JsonConverter> { new IsoDateTimeConverter() { DateTimeFormat = "yyyyMMdd HH:mm:ss ff" } },
+                //Converters = new List<JsonConverter> { new IsoDateTimeConverter() { DateTimeFormat = "yyyyMMdd HH:mm:ss ff" } },
                 ContractResolver = new CustomContractResolver(),
                 ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
             };

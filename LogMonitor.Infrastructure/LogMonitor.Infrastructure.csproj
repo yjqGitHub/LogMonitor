@@ -63,8 +63,10 @@
     <Compile Include="Container\LifeStyle.cs" />
     <Compile Include="Container\ObjectContainer.cs" />
     <Compile Include="Extension\ExceptionExtension.cs" />
+    <Compile Include="Extension\ExpressionExtension.cs" />
     <Compile Include="Extension\IpAddressExtention.cs" />
     <Compile Include="Extension\LogTypeEnumExtension.cs" />
+    <Compile Include="Extension\PageResultExtention.cs" />
     <Compile Include="Extension\StringExtension.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Extension\ByteExtension.cs" />
@@ -92,6 +94,9 @@
     <Compile Include="ThirdParty\Log4Net\Log4NetLogger.cs" />
     <Compile Include="ThirdParty\Log4Net\Log4NetLoggerFactory.cs" />
     <Compile Include="Utilities\Ensure.cs" />
+    <Compile Include="Utilities\ExpressionUtility.cs" />
+    <Compile Include="Utilities\PageResult.cs" />
+    <Compile Include="Utilities\ToolUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ThirdParty\Redis\" />

@@ -81,6 +81,29 @@ namespace LogMonitor.IRepository
         /// <returns></returns>
         IQueryable<T> LoadEntities<S>(Expression<Func<T, bool>> whereLamda, Expression<Func<T, S>> orderLamda, bool isDesc, bool autoDetectChangesEnabled = false);
 
+        /// <summary>
+        /// 根据条件查询并进行排序
+        /// </summary>
+        /// <param name="whereLamda">查询条件</param>
+        /// <param name="orderColumn">排序字段</param>
+        /// <param name="isDesc">是否倒序排列</param>
+        /// <param name="autoDetectChangesEnabled">是否跟踪实体（True:跟踪,False:不跟踪）</param>
+        /// <returns></returns>
+        IQueryable<T> LoadEntities(Expression<Func<T, bool>> whereLamda, string orderColumn, bool isDesc, bool autoDetectChangesEnabled = false);
+
+        /// <summary>
+        /// 根据条件查询并进行排序
+        /// </summary>
+        /// <typeparam name="S">排序字段</typeparam>
+        /// <param name="pageIndex">当前页面</param>
+        /// <param name="pageSize">页长</param>
+        /// <param name="whereLamda">查询条件</param>
+        /// <param name="orderLamda">排序条件</param>
+        /// <param name="isDesc">是否倒序排列</param>
+        /// <param name="autoDetectChangesEnabled">是否跟踪实体（True:跟踪,False:不跟踪）</param>
+        /// <returns></returns>
+        IQueryable<T> LoadEntities<S>(int pageIndex, int pageSize, Expression<Func<T, bool>> whereLamda, Expression<Func<T, S>> orderLamda, bool isDesc, bool autoDetectChangesEnabled = false);
+
         #endregion 查询
     }
 }

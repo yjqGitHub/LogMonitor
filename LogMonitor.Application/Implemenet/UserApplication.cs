@@ -1,10 +1,12 @@
-﻿using LogMonitor.Domain.Model;
+﻿using LogMonitor.Application.Dtos;
+using LogMonitor.Domain.Model;
 using LogMonitor.IDomianService;
 using LogMonitor.Infrastructure;
 using LogMonitor.Infrastructure.Extension;
 using LogMonitor.IRepository;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 /*
@@ -62,5 +64,31 @@ namespace LogMonitor.Application.Implemenet
         }
 
         #endregion 登录
+
+        #region 获取用户列表
+
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <param name="selectDto">用户查询条件传输对象</param>
+        /// <returns>用户列表</returns>
+        public PageResult<UserDto> GetUserList(UserSelectDto selectDto)
+        {
+            Expression<Func<User, bool>> whereLamda = _userDomainService.GetSelectWhereLamda(selectDto);
+            return _userRepository.GetUserList(whereLamda, selectDto.SortColumn, selectDto.IsDesc).Select(m => new UserDto()
+            {
+                FAddTime = m.FAddTime,
+                FIsAdmin = m.FIsAdmin,
+                FEmail = m.FEmail,
+                FId = m.FId,
+                FIsDeleted = m.FIsDeleted,
+                FMobile = m.FMobile,
+                FModifyTime = m.FModifyTime,
+                FName = m.FName,
+                FUserName = m.FUserName
+            }).ToPageList(selectDto.PageIndex, selectDto.PageSize);
+        }
+
+        #endregion 获取用户列表
     }
 }

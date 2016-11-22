@@ -1,4 +1,7 @@
-﻿using LogMonitor.Domain.Model;
+﻿using LogMonitor.Application.Dtos;
+using LogMonitor.Domain.Model;
+using System;
+using System.Linq.Expressions;
 
 /*
 * Author              :    yjq
@@ -23,5 +26,16 @@ namespace LogMonitor.IDomianService
         void CheckPwd(User user, string pwd);
 
         #endregion 校验用户的密码
+
+        #region 获取查询的条件lamda语句
+
+        /// <summary>
+        /// 获取查询的条件lamda语句
+        /// </summary>
+        /// <param name="selectDto">查询传输对象</param>
+        /// <returns>查询的条件lamda语句</returns>
+        Expression<Func<User, bool>> GetSelectWhereLamda(UserSelectDto selectDto);
+
+        #endregion 获取查询的条件lamda语句
     }
 }

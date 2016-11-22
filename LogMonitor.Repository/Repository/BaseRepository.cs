@@ -137,7 +137,7 @@ namespace LogMonitor.Repository
         /// <returns></returns>
         public IQueryable<T> LoadEntities(Expression<Func<T, bool>> whereLamda, bool autoDetectChangesEnabled = false)
         {
-            var queryList = _dbSet.Where(whereLamda);
+            var queryList = Where(whereLamda);
             return autoDetectChangesEnabled ? queryList : queryList.AsNoTracking();
         }
 
@@ -152,7 +152,7 @@ namespace LogMonitor.Repository
         /// <returns></returns>
         public IQueryable<T> LoadEntities<S>(Expression<Func<T, bool>> whereLamda, Expression<Func<T, S>> orderLamda, bool isDesc, bool autoDetectChangesEnabled = false)
         {
-            var queryList = _dbSet.Where(whereLamda);
+            var queryList = Where(whereLamda);
             if (isDesc)
                 queryList = queryList.OrderByDescending(orderLamda);
             else
@@ -160,6 +160,65 @@ namespace LogMonitor.Repository
             return autoDetectChangesEnabled ? queryList : queryList.AsNoTracking();
         }
 
+        #region 根据条件查询并进行排序
+
+        /// <summary>
+        /// 根据条件查询并进行排序
+        /// </summary>
+        /// <param name="whereLamda">查询条件</param>
+        /// <param name="orderColumn">排序字段</param>
+        /// <param name="isDesc">是否倒序排列</param>
+        /// <param name="autoDetectChangesEnabled">是否跟踪实体（True:跟踪,False:不跟踪）</param>
+        /// <returns></returns>
+        public IQueryable<T> LoadEntities(Expression<Func<T, bool>> whereLamda, string orderColumn, bool isDesc, bool autoDetectChangesEnabled = false)
+        {
+            var queryList = Where(whereLamda).OrderBy(orderColumn, isDesc);
+            return autoDetectChangesEnabled ? queryList : queryList.AsNoTracking();
+        }
+
+        #endregion 根据条件查询并进行排序
+
+        /// <summary>
+        /// 根据条件查询并进行排序
+        /// </summary>
+        /// <typeparam name="S">排序字段</typeparam>
+        /// <param name="pageIndex">当前页面</param>
+        /// <param name="pageSize">页长</param>
+        /// <param name="whereLamda">查询条件</param>
+        /// <param name="orderLamda">排序条件</param>
+        /// <param name="isDesc">是否倒序排列</param>
+        /// <param name="autoDetectChangesEnabled">是否跟踪实体（True:跟踪,False:不跟踪）</param>
+        /// <returns></returns>
+        public IQueryable<T> LoadEntities<S>(int pageIndex, int pageSize, Expression<Func<T, bool>> whereLamda, Expression<Func<T, S>> orderLamda, bool isDesc, bool autoDetectChangesEnabled = false)
+        {
+            var queryList = Where(whereLamda);
+            if (isDesc)
+                queryList = queryList.OrderByDescending(orderLamda);
+            else
+                queryList = queryList.OrderBy(orderLamda);
+            int skipCount = ToolUtility.MaxValue(pageIndex - 1, 0) * pageSize;
+            queryList = queryList.Skip(skipCount).Take(pageSize);
+            return autoDetectChangesEnabled ? queryList : queryList.AsNoTracking();
+        }
+
         #endregion 查询
+
+        #region 根据条件获取IQueryable结果
+
+        /// <summary>
+        /// 根据条件获取IQueryable结果
+        /// </summary>
+        /// <param name="whereLamda">要查询的条件</param>
+        /// <returns>IQueryable结果</returns>
+        protected IQueryable<T> Where(Expression<Func<T, bool>> whereLamda)
+        {
+            if (whereLamda == null)
+            {
+                return _dbSet;
+            }
+            return _dbSet.Where(whereLamda);
+        }
+
+        #endregion 根据条件获取IQueryable结果
     }
 }

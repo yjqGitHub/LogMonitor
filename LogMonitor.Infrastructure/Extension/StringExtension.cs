@@ -51,5 +51,19 @@ namespace LogMonitor.Infrastructure.Extension
             });
             return cipherBuilder.ToString();
         }
+
+        #region 判断字符不能空
+
+        /// <summary>
+        /// 判断字符不能空
+        /// </summary>
+        /// <param name="str">要判断的字符</param>
+        /// <returns>不为空 则为true 空则为false</returns>
+        public static bool IsNotNullOrEmpty(this string str)
+        {
+            return !string.IsNullOrWhiteSpace(str);
+        }
+
+        #endregion 判断字符不能空
     }
 }
